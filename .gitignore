@@ -1,0 +1,41 @@
+# ==============================================================================
+# .gitignore — tcc-retorno-educacao
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# Dados brutos da PNAD Contínua
+# Os microdados não são versionados porque (a) os arquivos são muito pesados
+# (cada ano tem centenas de MB) e (b) o IBGE disponibiliza os dados
+# publicamente. Veja o README para instruções de download.
+# ------------------------------------------------------------------------------
+data/raw/
+
+# Dados processados intermediários (.rds)
+# Gerados automaticamente ao rodar 01_importacao.R e 02_limpeza.R.
+# Não faz sentido versionar arquivos deriváveis a partir dos scripts.
+data/processed/
+
+# ------------------------------------------------------------------------------
+# Artefatos do R e RStudio
+# ------------------------------------------------------------------------------
+.Rhistory
+.RData
+.Rproj.user/
+*.Rproj
+
+# ------------------------------------------------------------------------------
+# Sistema operacional
+# ------------------------------------------------------------------------------
+.DS_Store        # macOS
+Thumbs.db        # Windows
+desktop.ini      # Windows
+
+# ------------------------------------------------------------------------------
+# O que SIM vai para o repositório:
+#   R/            → todos os scripts (.R)
+#   output/       → figuras e tabelas geradas (PNG, CSV)
+#   tex/          → código-fonte LaTeX
+#   docs/         → PDF compilado do TCC
+#   README.md
+#   .gitignore
+# ------------------------------------------------------------------------------
