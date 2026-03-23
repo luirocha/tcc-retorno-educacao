@@ -1,0 +1,1569 @@
+\documentclass[12pt,a4paper,header]{abnt}
+
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{hyperref}
+\usepackage{bookmark}
+%\usepackage{amsmath,amssymb,amsfonts,undertilde}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{subfigure}
+\usepackage{fancyhdr}
+
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{placeins}
+\usepackage{longtable}
+
+\usepackage{pdfpages} % Acrescentar pdf ficha bibliográfica
+
+\usepackage[alf]{abntex2cite}	% Citações padrão ABNT
+
+\newcommand{\indep}{\mathrel{\perp\!\!\!\perp}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Teoremas, definicoes, etc%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheorem{thm}{Teorema}[chapter]
+\newtheorem{cor}{Corolário}[chapter]
+\newtheorem{lem}{Lema}[chapter]
+\newtheorem{defi}{Definição}[chapter]
+\newtheorem{exe}{Exemplo}[chapter]
+\newtheorem{prop}{Proposição}[chapter]
+
+\renewcommand{\ABNTchapterfont}{\bfseries}
+\renewcommand{\ABNTsectionfont}{\bfseries}
+
+\fancypagestyle{logouff}{%
+	\renewcommand{\headrulewidth}{0pt}
+	\fancyhead{}
+	\fancyhead[R]{\includegraphics[width=0.7\textwidth]{figuras/logoUFF.pdf}}% Your logo/image
+  	\setlength{\headheight}{30pt} 
+  	\setlength{\headsep}{2cm}
+}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%colocar aqui o nome do aluno%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\autor{Luí Vítor Bezerril Rocha}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%colocar aqui o título da monografia%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\titulo{Evolução da taxa de retorno à educação em capitais brasileiras via modelos lineares}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%colocar aqui o nome do orientador%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\orientador{Prof. Dr. Rafael Santos Erbisti}  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%colocar aqui o nome do co-orientador, caso exista%%
+%se nao existir, comente a linha de codigo a seguir%
+%ATENCAO: se nao houver co-orinetador também deve  %
+%         ser comentada a linha 124, onde aparece  %
+%         "Co-Orientador: & \ABNTcoorientadordata" %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\coorientador{Prof. Dr. Nome do Co-orientador}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%colocar aqui a data da apresentacao da monografia%
+%segue um exemplo								  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\data{18 de dezembro de 2025}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%nao mexer até a linha 170%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\comentario{Monografia apresentada para obtenção do grau de Bacharel em Estatística pela Universidade Federal Fluminense.}
+
+\instituicao{Departamento de Estatística \par Instituto de Matemática e Estatística \par Universidade Federal Fluminense}
+
+\local{Niterói - RJ, Brasil}
+
+\capa
+
+\vspace{10cm}
+
+
+
+\begin{titlepage}
+
+\thispagestyle{logouff}
+
+\vspace{2cm}
+
+\hspace{.2\textwidth} % posicionando a minipage
+\begin{minipage}{.7\textwidth}
+
+\begin{flushright}
+
+{\large \bf \ABNTautordata} \\[3cm]
+
+{\Large \bf \ABNTtitulodata}\\[3cm]
+
+{\bf Trabalho de Conclusão de Curso}\\[1cm]
+
+\end{flushright}
+
+\begin{espacosimples}
+
+\ABNTcomentariodata
+
+\end{espacosimples}
+
+\vspace{1cm}
+
+\hfill 
+\begin{tabular}{rl}
+Orientador(a): & \ABNTorientadordata\\
+%%%%%%%%%%%%%%%%%
+% Comentar linha seguinte caso não haja co-orientador
+%Co-Orientador(a): & \ABNTcoorientadordata
+\end{tabular}
+
+\end{minipage}
+
+\vspace{7cm}
+
+\begin{center}
+
+\ABNTlocaldata
+
+\ABNTdatadata
+
+\end{center}
+
+\end{titlepage}
+
+
+%folha de aprovacao com as assinaturas - Editar os membros da banca
+\begin{folhadeaprovacao}
+
+\thispagestyle{logouff}
+
+\hspace{.2\textwidth} % posicionando a minipage
+\begin{minipage}{.7\textwidth}
+
+\begin{flushright}
+
+{\large \bf \ABNTautordata}\\[1cm]
+
+{\large \bf \ABNTtitulodata}\\[1cm]
+
+\end{flushright}
+Monografia de Projeto Final de Graduação sob o título \textit{``\ABNTtitulodata''},
+defendida por \ABNTautordata~e aprovada em \ABNTdatadata, na cidade de Niterói,
+no Estado do Rio de Janeiro, pela banca examinadora constituída pelos
+professores:
+\begin{flushright}
+
+\begin{espacosimples}
+
+
+
+
+%Folha de assinaturas
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Preencher os dados dos membros da banca%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\vspace{1.5cm}
+\noindent\rule{10cm}{0.4pt}\\
+{\bf Prof. Dr. Rafael Santos Erbisti}\\
+Departamento de Estatística -- UFF\\
+
+%se o trabalho não tiver co-orientator, comentar as 4 linhas que seguem
+%\vspace{1.5cm}
+%\noindent\rule{10cm}{0.4pt}\\
+%{\bf Prof. Dr. Nome do Co-Orientador}\\
+%Departamento de Estatística -- UFF\\
+
+\vspace{1.5cm}
+\noindent\rule{10cm}{0.4pt}\\
+{\bf Prof. Dr. Guilherme Augusto Veloso}\\
+Departamento de Estatística -- UFF\\
+
+
+\vspace{1.5cm}
+\noindent\rule{10cm}{0.4pt}\\
+{\bf Prof. Dr. Victor Eduardo Leite de Almeida Duca}\\
+Departamento de Estatística -- UFF\\
+
+\end{espacosimples}
+
+\end{flushright}
+
+\vspace{1.5cm}
+\hfill Niterói, \ABNTdatadata
+
+\end{minipage}
+
+\end{folhadeaprovacao}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% inclusão de ficha bibliográfica
+% retire o símbolo de comentário e corrija o nome do arquivo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\includepdf[pages=-]{ficha.pdf}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%escreva aqui o resumo do seu trabalho%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{resumo}
+A análise do retorno da educação é especialmente relevante em um país marcado por desigualdades estruturais, pois evidencia como a escolaridade pode funcionar como um dos principais mecanismos de mobilidade social. Compreender esses retornos também auxilia na definição de prioridades para investimentos públicos que ampliem o acesso e a qualidade da educação em todas as regiões. Este trabalho busca comparar o retorno da educação entre os trabalhadores que vivem nas capitais do Brasil. Os dados utilizados foram da PNAD Contínua do 2º trimestre dos anos 2016, 2019, 2022 e 2025. A metodologia empregada baseou-se na estimação da equação $minceriana$ adaptada ao modelo Log-Normal, uma abordagem amplamente utilizada na literatura econômica para mensurar o impacto da escolaridade sobre a renda. Os resultados obtidos confirmam que a educação tem um retorno positivo significativo sobre o rendimento, sendo esse ganho mais expressivo nos níveis educacionais mais elevados. Foram observadas, contudo, grandes disparidades regionais, com as capitais do Sudeste e Sul mantendo consistentemente os maiores rendimentos médios, embora Brasília se destaque como a capital com maior renda em grande parte dos anos analisados. A obtenção de um modelo que se ajuste de maneira mais robusta é fundamental para confirmar a real situação das populações estudadas e contribuir para a formulação de políticas públicas eficazes na mitigação das desigualdades.
+
+\vspace{1cm}
+\noindent Palavras-chave: Retorno da educação. Equação $minceriana$. Capitais brasileiras. PNAD Contínua.
+\end{resumo}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%escreva aqui a sua dedicatória% (opcional)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\chapter*{Dedicatória}
+%Aqui entra a sua dedicatória. 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%escreva aqui seus agradecimentos% (opcional)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\chapter*{Agradecimentos}
+%Aqui entram os agradecimentos. 
+
+
+
+\tableofcontents{}
+\listoffigures
+\listoftables
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Aqui começam os capítulo da sua monografia%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Introdução} \label{cap:introducao}
+
+% Motivcação
+A educação é de suma importância para toda e qualquer sociedade, desempenhando um papel fundamental no desenvolvimento dos indivíduos e suas nações. No contexto brasileiro, é possível encontrar diversos estudos que evidenciam a relação entre nível de escolaridade e a renda dos indivíduos, destacando a educação como um dos principais determinantes para uma melhor renda.
+
+
+A expansão do acesso à educação resultou em avanços socioeconômicos significativos, mas ainda há desafios importantes, principalmente no que se refere à qualidade do ensino e às desigualdades sociais. Segundo \citeonline{sachsida2004}, se faz necessário a participação do governo para níveis mais elementares de ensino, já que uma pessoa de baixa renda não teria condições de investir na educação devido ao alto custo e baixo retorno imediato. E o mesmo motivo vale para famílias de baixa renda, que não estariam dispostas a investir na educação de seus filhos.
+
+Diversos artigos entram em consenso ao fato de que a faixa salarial é influenciada pelo nível educacional do indivíduo e que isso pode afetar a distribuição de capital na população, porém, não é possível afirmar isso para o caso de pessoas com mesmo nível educacional e mesmas características, porém, residindo em diferentes regiões do país. A associação entre nível de escolaridade e média salarial dos habitantes é bastante relevante, especialmente, se considerar as diferenças regionais existentes.
+
+
+\section{Revisão Bibliográfica}
+\citeonline{leal1991} calcularam as taxas de retorno à educação no Brasil a partir da Pesquisa Nacional por Amostra de Domicílios (PNAD) de 1976 a 1989 e utilizaram a equação desenvolvida por \citeonline{mincer1974} em sua pesquisa. Os autores estimaram que o investimento em educação apresenta retornos pessoais de uma taxa de 16\% por ano de estudo. Além disso, observaram que os retornos associados aos ensinos médio e superior se elevam ao longo do tempo, enquanto os retornos ao segundo ciclo do ensino fundamental apresentaram tendência de declínio (11,22\% em 1976/79, 10,36\% em 1981/85 e 8,44\% em 1986/89) e o primeiro ciclo do ensino fundamental possui a taxa mais vantajosa (aumento de 16,61\% em 1976/79, 15,56\% em 1981/85 e 16,38\% em 1986/89).
+
+\citeonline{sachsida2004} investigaram a taxa de retorno à educação no Brasil, considerando diferentes fontes de viés nas estimativas econométricas. Foram aplicadas três metodologias distintas para identificar e corrigir possíveis distorções na equação de salários e em que todas elas a variável que mede o nível educacional foi importante. Assim como \citeonline{jacinto2015}, usando das mesmas metodologias, ficou evidente a importância da variável educação na determinação dos rendimentos dos trabalhadores, sendo o ensino superior o que representou o maior retorno, e pouca importância para o viés de variável omitida.
+
+\citeonline{suliano2012} compararam o retorno da educação entre as regiões Nordeste e Sudeste e estimaram taxas de retorno para o período de 2001 a 2006. Mesmo com as disparidades econômicas significativas entre essas regiões, os resultados mostraram que os retornos da escolaridade se mantêm elevados, um aumento de um ano a mais de estudo eleva o salário em até 16\% na região Nordeste e em até 13\% na região Sudeste.
+
+\citeonline{tafner2016} realizaram uma análise comparativa dos retornos da educação entre moradores de favela e não favela na cidade do Rio de Janeiro, utilizando também a equação \textit{minceriana}. O estudo demonstrou que a diferença nos retornos à escolaridade entre esses dois grupos se torna mais expressiva à medida que aumentam os níveis de escolaridade. Observou-se, ainda, que o impacto da educação sobre a renda é mais significativo entre os indivíduos que não residem em favelas, independentemente do nível educacional alcançado.
+
+\citeonline{silva2022} analisaram os efeitos da educação nos rendimentos de indivíduos residentes no Brasil, com foco nas regiões Sul e Nordeste, utilizando dados da PNAD Contínua de 2017. O estudo aplicou a equação de rendimentos proposta por \citeonline{mincer1974} e o procedimento de \citeonline{heckman1979} para correção de viés de seleção, além do método de \citeonline{trostel2004} para estimar os retornos da escolaridade. Os resultados indicaram que o capital humano apresenta retornos crescentes, ou seja, quanto maior o nível de escolaridade, maior o retorno salarial. No Brasil como um todo, indivíduos com 4 anos de estudo apresentam retorno de 2,9\%, enquanto aqueles com 15 anos apresentaram retorno de 33,2\%, isto é, em média, espera-se que o salário do indivíduo com 4 anos de estudo seja 2,9\% maior do que aqueles sem instrução ou com menos de 1 ano de estudo e que o salário médio de um indivíduo com 15 anos de estudo seja 33,2\% maior do que os indivíduos sem instrução ou com menos de 1 ano de estudo. Comparando as regiões, o Nordeste apresentou retornos maiores: 2,7\% com 4 anos de estudo e 33,2\% com 15 anos, frente a 1,8\% e 26,3\% no Sul, respectivamente. Isso evidencia que, mesmo com desigualdades regionais, a educação continua sendo um mecanismo eficaz de valorização no mercado de trabalho, especialmente nas regiões mais vulneráveis.
+
+
+% Objetivos
+Nesse sentido, este trabalho tem como objetivo geral estimar e analisar o retorno da educação sobre os rendimentos dos indivíduos residentes nas capitais dos estados brasileiros, com base nos microdados da PNAD Contínua. Os objetivos específicos deste trabalho são apresentados abaixo:
+
+\begin{itemize}
+    \item Estimar as taxas de retorno da escolaridade para cada capital brasileira nos anos 2016, 2019, 2022 e 2025 utilizando a equação \textit{minceriana};
+    \item Comparar os retornos da educação entre as capitais, identificando disparidades regionais e socioeconômicas;
+    \item Avaliar a influência de fatores como gênero, cor/raça e setor de atividade sobre os retornos da educação nas capitais;
+    \item Investigar se capitais situadas em regiões historicamente mais desfavorecidas (como Norte e Nordeste) apresentam retornos maiores para níveis educacionais mais elevados, conforme apontado por \citeonline{silva2022}; e
+    \item Contribuir para o debate sobre desigualdades no Brasil, reforçando o papel da educação como mecanismo de mobilidade social e apontar a necessidade de políticas públicas que estimulem o investimento em educação.
+\end{itemize}
+
+
+\section{Organização}
+Este trabalho encontra-se dividido em quatro capítulos, incluindo este introdutório. O próximo capítulo apresenta os materiais do estudo com uma análise das variáveis e metodologias utilizadas. No Capítulo \ref{cap:analise_resultados} são apresentados os resultados obtidos. Por último, no Capítulo \ref{cap:conclusao} serão discutidas as conclusões do trabalho.
+
+
+
+
+
+\chapter{Materiais e Métodos} \label{cap:materias_metodos}
+
+Neste capítulo, serão apresentados os materiais e métodos utilizados no estudo. Especificamente, serão apresentadas a área de estudo, bases de dados, variáveis utilizadas e métodos estatísticos utilizados.
+
+
+\section{Área de Estudo}
+A região de estudo deste trabalho é composta pelas capitais dos 26 estados brasileiros e do Distrito Federal, totalizando 27 cidades. Elas representam os principais centros político-administrativos de cada estado e concentram grande parte das atividades econômicas, dos serviços públicos e das instituições educacionais do país.
+
+Ao focar nas capitais, este trabalho busca compreender como a educação afeta os rendimentos em contextos urbanos marcados por maior oferta de oportunidades, maior diversidade ocupacional e mais estrutura de ensino em todos os níveis. Além disso, por serem centros metropolitanos, essas localidades permitem capturar de forma mais precisa as relações entre escolaridade e renda no mercado de trabalho.
+
+A seguir, estão listadas as capitais incluídas neste estudo, organizadas por região:
+
+\begin{itemize}
+    \item \textbf{Região Norte}: Rio Branco (AC), Macapá (AP), Manaus (AM), Belém (PA), Porto Velho (RO), Boa Vista (RR), Palmas (TO).
+    \item \textbf{Região Nordeste}: Salvador (BA), Fortaleza (CE), São Luís (MA), João Pessoa (PB), Teresina (PI), Recife (PE), Natal (RN), Aracaju (SE), Maceió (AL).
+    \item \textbf{Região Centro-Oeste}: Brasília (DF), Goiânia (GO), Cuiabá (MT), Campo Grande (MS).
+    \item \textbf{Região Sudeste}: Belo Horizonte (MG), Vitória (ES), Rio de Janeiro (RJ), São Paulo (SP).
+    \item \textbf{Região Sul}: Curitiba (PR), Florianópolis (SC), Porto Alegre (RS).
+\end{itemize}
+
+Essa delimitação permite comparações regionais relevantes, considerando o papel das desigualdades históricas, estruturais e de acesso à educação entre diferentes partes do país, como visto na Figura \ref{tab:mapaBrasil}.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=1\linewidth]{figuras/Mapa_do_Brasil.png}
+\caption{Mapa do Brasil - Divisão por regiões} \label{tab:mapaBrasil}
+\end{figure}
+
+As regiões possuem as seguintes características, baseadas em dados disponibilizadas pelo \citeonline{ibge2025}:
+
+\begin{itemize}
+    \item \textbf{Região Norte}: Em 2024, a população total estimada foi de 5.861.36 pessoas. No Censo de 2022, registrou-se uma população de 5.351.393 pessoas e uma densidade demográfica de, em média, 248,87 hab/km². No Censo 2010, 95,61\% da população residente nos municípios de 6 a 14 anos de idade estava matriculada no ensino regular e apresentou um IDHM (índice de desenvolvimento humano municipal) de 0,745. Em 2022, o salário médio mensal dos trabalhadores formais foi de 3,31 salários mínimos e tendo 36,41\% da população ocupada.
+    
+    \item \textbf{Região Nordeste}: Em 2024, a população total estimada foi de 12.019.108 pessoas. No Censo de 2022, registrou-se uma população de 11.385.286 pessoas e uma densidade demográfica de, em média, 3.790,67 hab/km². No Censo 2010, 96,58\% da população residente nos municípios de 6 a 14 anos de idade estava matriculada no ensino regular e apresentou um IDHM (índice de desenvolvimento humano municipal) de 0,757. Em 2022, o salário médio mensal dos trabalhadores formais foi de 2,84 salários mínimos e tendo 41,10\% da população ocupada.
+    
+    \item \textbf{Região Centro-Oeste}: Em 2024, a população total estimada foi de 6.114.886 pessoas. No Censo de 2022, registrou-se uma população de 5.803.724 pessoas e uma densidade demográfica de, em média, 680,37 hab/km². No Censo 2010, 96,92\% da população residente nos municípios de 6 a 14 anos de idade estava matriculada no ensino regular e apresentou um IDHM (índice de desenvolvimento humano municipal) de 0,798. Em 2022, o salário médio mensal dos trabalhadores formais foi de 3,72 salários mínimos e tendo 48,79\% da população ocupada.
+    
+    \item \textbf{Região Sudeste}: Em 2024, a população total estimada foi de 21.384.611 pessoas. No Censo de 2022, registrou-se uma população de 20.301.651 pessoas e uma densidade demográfica de, em média, 5.753,84 hab/km². No Censo 2010, 97,02\% da população residente nos municípios de 6 a 14 anos de idade estava matriculada no ensino regular e apresentou um IDHM (índice de desenvolvimento humano municipal) de 0,814. Em 2022, o salário médio mensal dos trabalhadores formais foi de 3,85 salários mínimos e tendo 63,43\% da população ocupada.
+    
+    \item \textbf{Região Sul}: Em 2024, a população total estimada foi de 3.794.908 pessoas. No Censo de 2022, registrou-se uma população de 3.643.774 pessoas e uma densidade demográfica de, em média, 2.521,69 hab/km². No Censo 2010, 97,53\% da população residente nos municípios de 6 a 14 anos de idade estava matriculada no ensino regular e apresentou um IDHM (índice de desenvolvimento humano municipal) de 0,825. Em 2022, o salário médio mensal dos trabalhadores formais foi de 4 salários mínimos e tendo 66,83\% da população ocupada.
+\end{itemize}
+
+
+\section{Base de dados} \label{sec:base_de_dados}
+Nesta seção, apresenta-se a Pesquisa Nacional por Amostra de Domicílios Contínua, mais conhecida como PNAD Contínua, que será utilizada neste trabalho. A PNAD Contínua é realizada pelo Instituto Brasileiro de Geografia e Estatística (IBGE) e foi implantada, em caráter definitivo, a partir de janeiro de 2012 em todo o território nacional, com o objetivo de acompanhar informações essenciais para o estudo do desenvolvimento socioeconômico do país.
+
+A pesquisa é realizada em domicílios selecionados por amostragem e pesquisados uma vez a cada trimestre de forma que, a cada trimestre, haja domicílios que estejam sendo pesquisados pela 1ª, 2ª, 3ª, 4ª e 5ª vez. Serão utilizados os dados da PNAD Contínua referentes ao 2º trimestre dos anos 2016, 2019, 2022 e 2025, por se tratar do último resultado trimestral disponível, de forma que possa se comparar e avaliar a evolução dos dados ao longo do tempo. Os dados estão disponíveis no portal do \href{https://ftp.ibge.gov.br/Trabalho_e_Rendimento/Pesquisa_Nacional_por_Amostra_de_Domicilios_continua/Trimestral/Microdados/}{IBGE}.
+
+A base final será composta apenas por moradores das capitais. Para essa base, serão selecionadas pessoas com idades entre 25 e 64 anos, faixa etária correspondente à população em idade ativa, com renda diferente de zero. Serão removidos os moradores agregados, pensionistas, empregados domésticos e parentes de empregados domésticos. Também serão removidas as pessoas que se declaram amarelas ou indígenas, por representarem uma presença muito pequena, mesmo quando agrupadas.
+
+
+\section{Variáveis}
+As variáveis utilizadas foram escolhidas com base nos estudos de \citeonline{tafner2016} e \citeonline{silva2020}, priorizando aquelas que mais influenciam a relação entre escolaridade e rendimento. O objetivo foi selecionar os fatores mais relevantes, tanto sobre as características pessoais quanto sobre o ambiente em que os indivíduos vivem. A seguir estão listadas as variáveis e suas definições.
+
+\vspace{1em}
+\noindent a) Variáveis sobre indivíduos e seus domicílios:
+
+\begin{itemize}
+    \item[\textbf{•}]Tipo de área: se o domicílio no qual o indivíduo reside se encontra na Capital.
+    \item[\textbf{•}]Condição no domicílio: indica a relação entre o morador e o responsável pelo domicílio. Esta variável está dividida em: pessoa responsável pelo domicílio; cônjuge ou companheiro(a) de sexo diferente; cônjuge ou companheiro(a) do mesmo sexo; filho(a) do responsável e do cônjuge; filho(a) somente do responsável; enteado(a); genro ou nora; pai; mãe; padrasto ou madrasta; sogro(a); neto(a); bisneto(a); irmão ou irmã; avô ou avó; outro parente; agregado(a) - não parente que não compartilha despesas; convivente - não parente que compartilha despesas; pensionista; empregado(a) doméstico(a); parente do(a) empregado(a) doméstico(a).
+    \item[\textbf{•}]Sexo: sexo do morador, classificado como masculino e feminino.
+    \item[\textbf{•}]Idade: idade em anos do indivíduo no dia da entrevista. Varia de 0 a 130 anos.
+    \item[\textbf{•}]Cor ou raça: cor ou raça do indivíduo. Esta variável está dividida em: branca, preta, amarela, parda, indígena e ignorado.
+    \item[\textbf{•}]Alfabetizado: indica se o indivíduo sabe ler e escrever. Esta variável está dividida em sim e não.
+    \item[\textbf{•}]Carteira assinada: indica se o indivíduo possui carteira de trabalho assinada. Esta variável está dividida em sim e não.
+    \item[\textbf{•}]Rendimento: valor mensal que a pessoa recebia no seu trabalho principal, em real.
+    \item[\textbf{•}]Horas: indica quantas horas o indivíduo trabalhava normalmente, por semana, no trabalho principal. Varia entre 1 e 120 horas de trabalho semanal.
+    \item[\textbf{•}]Nível de instrução: mostra o nível de instrução mais elevado alcançado para pessoas de 5 anos ou mais de idade, padronizado para o ensino fundamental com duração de 9 anos. Esta variável está dividida em sem instrução e menos de 1 ano de estudo; fundamental incompleto ou equivalente; fundamental completo ou equivalente; médio incompleto ou equivalente; médio completo ou equivalente; superior incompleto ou equivalente; superior completo.
+    \item[\textbf{•}]Anos de estudo: quantos anos a pessoa estudou. Varia entre 0 até 16 (16 anos ou mais de estudo).
+    \item[\textbf{•}]Posição ocupacional: mostra qual a posição da pessoa na ocupação e categoria do emprego do trabalho principal da semana de referência. Esta variável está dividida em empregado no setor privado com carteira de trabalho assinada; empregado no setor privado sem carteira de trabalho assinada; trabalhador doméstico com carteira de trabalho assinada; trabalhador doméstico sem carteira de trabalho assinada; empregado no setor público com carteira de trabalho assinada; empregado no setor público sem carteira de trabalho assinada; militar e servidor estatutário; empregador; conta-própria; trabalhador familiar auxiliar.
+    \item[\textbf{•}]Grupamentos ocupacionais: mostra os grupamentos ocupacionais do trabalho principal da semana de referência das pessoas. Esta variável está dividida em diretores e gerentes; profissionais das ciências e intelectuais; técnicos e profissionais de nível médio; trabalhadores de apoio administrativo; trabalhadores dos serviços, vendedores dos comércios e mercados; trabalhadores qualificados da agropecuária, florestais, da caça e da pesca; trabalhadores qualificados, operários e artesões da construção, das artes mecânicas e outros ofícios; operadores de instalações e máquinas e montadores; ocupações elementares; membros das forças armadas, policiais e bombeiros militares; ocupações mal definidas.
+    \item[\textbf{•}]Contribuição: indica se a pessoa contribui para instituto de previdência em qualquer trabalho da semana de referência. Esta variável está dividida em contribuinte e não contribuinte.
+\end{itemize}
+
+\vspace{1em}
+\noindent b) Variáveis criadas:
+
+\begin{itemize}
+    \item[\textbf{•}]Região: Esta variável foi criada a partir da junção dos estados na variável UF. As categorias são: Norte, Nordeste, Centro-Oeste, Sudeste e Sul.
+    \item[\textbf{•}]Faixa etária: Esta variável foi criada a partir da variável Idade e utiliza apenas as pessoas com idade de 25 a 64 anos. As categorias são: jovens (25 a 29 anos), adultos (30 a 59 anos) e idosos (60 a 64 anos).
+    \item[\textbf{•}]Chefe de domicílio: Esta variável foi criada a partir da variável Condição no domicílio. Se a pessoa for responsável pelo domicílio será classificado como chefe, senão não chefe.
+    \item[\textbf{•}]Rendimento médio: Esta variável foi criada pela divisão da variável Rendimento pela variável Horas multiplicado por \(\left(\frac{30}{28}\right)\times 4\). Essa multiplicação se deve ao fato de Rendimento ser mensal e Horas serem semanal, assim, a multiplicação permite que as variáveis fiquem na mesma escala.
+    \item[\textbf{•}]Nível de escolaridade: Esta variável é uma revisão da variável Nível de instrução, unindo algumas categorias e as reclassificando como: sem instrução e menos de 1 ano de estudo; fundamental incompleto; fundamental completo; médio completo; superior completo.
+    \item[\textbf{•}]Formalidade: Esta variável é uma revisão da variável Posição ocupacional, unindo algumas categorias e as classificando como formal e informal. 
+    \item[\textbf{•}]Atividade: Esta variável é uma revisão da variável Grupamentos ocupacionais, unindo algumas categorias e as reclassificando como: 1- diretores, gerentes e profissionais da ciência/intelectuais; 2- técnicos, profissionais administrativos, serviços, comércios e mercados; 3- operários, artesões da construção, agropecuária, operadores de máquinas e outro ofícios; 4- militares; 5- outras ocupações.
+\end{itemize}
+
+
+\section{Modelo Log-Normal}
+Como a renda apresenta um comportamento assimétrico, com poucas pessoas concentrando rendimentos elevados e muitas com rendimentos mais baixos, foi aplicada uma transformação logarítmica. Seguindo \citeonline{montgomery2012}, seja $\textbf{y} = (y_1, \ldots, y_n)^T$, $i=1,\ldots,n$, o vetor resposta de observações, e seja $\textbf{X}$ a matriz
+ de covariáveis, de dimensão $n\times p$, onde cada linha $\textbf{x}_i^T$ representa os valores das $p$ covariáveis para a observação $i$. Nesse sentido, pode-se definir o modelo de regressão normal para o logaritmo de $\textbf{y}$ da seguinte maneira:
+\begin{equation}
+y_i^* = \log(y_i) = \mathbf{x}_i^\top \boldsymbol{\beta} + \varepsilon_i
+\label{eq:lognormal_model1}
+\end{equation}
+
+onde:
+
+\begin{itemize}
+    \item \( y_i^* \) representa a transformação logarítmica da variável resposta da \(i\)-ésima observação, com $i = 1,\ldots,n$;
+    \item \( \mathbf{x}_i^\top = [x_{i1}, \ldots, x_{ip}] \) é o vetor linha \( 1 \times p \) com as variáveis explicativas associadas à observação \(i\);
+    \item \( \boldsymbol{\beta} \) é um vetor \( (p+1) \times 1 \) contendo os parâmetros desconhecidos do modelo;
+    \item \(\varepsilon_i\) são erros aleatórios independentes, com \( \varepsilon_i \sim N(0, \sigma^2) \), para $i = 1,\ldots,n$.
+\end{itemize}
+
+Sendo assim, a forma matricial do modelo é:
+\begin{equation}
+\mathbf{y}^* = \mathbf{X} \boldsymbol{\beta} + \boldsymbol{\varepsilon}
+\label{eq:lognormal_model2}
+\end{equation}
+
+com,
+
+\[
+\mathbf{y}^* =
+\begin{bmatrix}
+y_{1}^* \\
+\vdots \\
+y_{n}^*
+\end{bmatrix}, \quad
+\mathbf{X} =
+\begin{bmatrix}
+x_{11} & \cdots & x_{1p} \\
+\vdots & \ddots & \vdots \\
+x_{n1} & \cdots & x_{np}
+\end{bmatrix}, \quad
+\boldsymbol{\beta} =
+\begin{bmatrix}
+\beta_0 \\
+\vdots \\
+\beta_p
+\end{bmatrix}, \quad
+\boldsymbol{\varepsilon} =
+\begin{bmatrix}
+\varepsilon_1 \\
+\vdots \\
+\varepsilon_n
+\end{bmatrix}
+\]
+
+A predição do valor de \(y^*\) para uma nova observação é realizada em duas etapas:
+\begin{align}
+ \hat{y}_i^* = \log(\hat{y}_i) &= \hat{\beta}_0 + \hat{\beta}_1 x_{i1} + \hat{\beta}_2 x_{i2} + \cdots + \hat{\beta}_p x_{ip}
+\label{eq:log_pred}
+\end{align}
+
+e, portanto,
+\begin{align}
+\hat{y}_i &= \exp\left(\hat{\beta}_0 + \hat{\beta}_1 x_{i1} + \hat{\beta}_2 x_{i2} + \cdots + \hat{\beta}_p x_{ip}\right).
+\label{eq:exp_pred}
+\end{align}
+
+A adequação do modelo pode ser verificada por meio da análise dos resíduos, definido como:
+\begin{equation}
+e_i = y_i^* - \hat{y}_i^*.
+\label{eq:residual}
+\end{equation}
+
+O resíduo padronizado, por sua vez, é:
+\begin{equation}
+e_i^* = \frac{e_i - \textit{E}[e_i]}{\sqrt{\textit{MQE}}} = \frac{y_i^* - \hat{y}_i^*}{\sqrt{\textit{MQE}}} ,
+\label{eq:residual_p}
+\end{equation}
+
+\noindent onde \(\text{MQE}\) representa a Média dos Quadrados dos Erros dos resíduos. Espera-se que os resíduos padronizados estejam aproximadamente distribuídos com média zero e variância constante.
+
+Entre as suposições fundamentais de um modelo de regressão linear estão:
+
+\begin{enumerate}
+    \item Linearidade: relação linear entre os preditores \( \textit{x}_i \) e \( \textit{E}[y_i^*] \);
+    \item Homocedasticidade: variância constante \( \sigma^2 \) dos erros e independência de \( \textit{x}_i \);
+    \item Normalidade: os erros são variáveis aleatórias independentes e possuem distribuição Normal.
+\end{enumerate}
+
+
+\subsection{Inferência dos parâmetros}
+O método dos mínimos quadrados, é amplamente utilizado para estimar os parâmetros de modelos de regressão linear. Esse método consiste em minimizar a soma dos quadrados dos erros, representados por \( \varepsilon_i \), o que leva à minimização da Soma dos Quadrados dos Erros (SQE), conforme apresentado em \citeonline{montgomery2012}.
+
+Seja \( \boldsymbol{\beta} = (\beta_0,\ldots,\beta_p)\) o vetor de parâmetros do modelo. A soma dos quadrados dos erros é definida por:
+\begin{equation}
+    SQE = \sum_{i=1}^{n} \varepsilon_i^2 = \sum_{i=1}^{n} (y_i^* - \beta_0 - \beta_1 X_{i1} - \beta_2 X_{i2} - \cdots - \beta_p X_{ip})^2.
+\end{equation}
+
+Reescrevendo em forma matricial, tem-se:
+\begin{equation*}
+    SQE = \boldsymbol{\varepsilon}^T \boldsymbol{\varepsilon} = (\mathbf{y_i^*} - \mathbf{X} \boldsymbol{\beta})^T (\mathbf{y_i^*} - \mathbf{X} \boldsymbol{\beta})
+\end{equation*}
+\begin{equation}
+    = \mathbf{y_i^*}^T \mathbf{y_i^*} - 2\boldsymbol{\beta}^T \mathbf{X}^T \mathbf{y_i^*} + \boldsymbol{\beta}^T \mathbf{X}^T \mathbf{X} \boldsymbol{\beta}.
+\end{equation}
+
+Para encontrar o estimador de \( \boldsymbol{\beta} \), derivamos a SQE em relação a \( \boldsymbol{\beta} \) e igualamos a zero:
+\begin{align*}
+    \frac{\partial SQE}{\partial \boldsymbol{\beta}} &= -2 \mathbf{X}^T \mathbf{y_i^*} + 2 \mathbf{X}^T \mathbf{X} \boldsymbol{\beta} = 0 \\
+    &\Rightarrow \mathbf{X}^T \mathbf{X} \boldsymbol{\beta} = \mathbf{X}^T \mathbf{y_i^*}
+\end{align*}
+\begin{equation}
+    \Rightarrow \hat{\boldsymbol{\beta}} = (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf{y_i^*}.
+\end{equation}
+
+Com as seguintes propriedades do estimador:
+
+\begin{itemize}
+    \item[\textbf{•}]Esperança de \( \hat{\boldsymbol{\beta}} \):
+\end{itemize}
+\begin{align*}
+    \textit{E}[\hat{\boldsymbol{\beta}}] &= \textit{E}[(\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf{y_i^*}] \\
+    &= (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \textit{E}[\mathbf{y_i^*}] \\
+    &= (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf{X} \boldsymbol{\beta} = \boldsymbol{\beta}
+\end{align*}
+\begin{equation}
+    = (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf{X} \boldsymbol{\beta} = \boldsymbol{\beta}
+\end{equation}
+
+\begin{itemize}
+    \item[\textbf{•}]Variância de \( \hat{\boldsymbol{\beta}} \):
+\end{itemize}
+\begin{align*}
+    \mathrm{Var}[\hat{\boldsymbol{\beta}}] &= \mathrm{Var}((\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf{y_i^*}) \\
+    &= (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathrm{Var}(\mathbf{Y}) \mathbf{X} (\mathbf{X}^T \mathbf{X})^{-1}
+\end{align*}
+\begin{equation}
+    = \sigma^2 (\mathbf{X}^T \mathbf{X})^{-1}
+\end{equation}
+
+Assim, \( \hat{\boldsymbol{\beta}} \) é um estimador não viesado e sua distribuição é dada por:
+\begin{equation}
+    \hat{\boldsymbol{\beta}} \sim NMV(\boldsymbol{\beta}, \sigma^2 (\mathbf{X}^T \mathbf{X})^{-1})
+\end{equation}
+
+A variância \( \sigma^2 \) do termo de erro pode ser estimada com base na soma dos quadrados dos erros:
+\begin{equation}
+    SQE = (\mathbf{y_i^*} - \mathbf{X} \hat{\boldsymbol{\beta}})^T (\mathbf{y_i^*} - \mathbf{X} \hat{\boldsymbol{\beta}}) = \mathbf{y_i^*}^T \mathbf{y_i^*} - \hat{\boldsymbol{\beta}} \mathbf{X}^T \mathbf{y_i^*}
+\end{equation}
+
+Com \( p \) parâmetros estimados, SQE tem $n-(p+1)$ graus de liberdade. Um estimador não viesado para variância \( \sigma^2 \) é dado por:
+\begin{equation}
+    MQE = \frac{\mathbf{Y}^T \mathbf{Y} - \hat{\boldsymbol{\beta}}^T \mathbf{X}^T \mathbf{Y}}{n - (p+1)}
+\end{equation}
+
+Logo:
+\begin{equation}
+    \hat{\sigma}^2 = MQE = \frac{SQE}{n - (p+1)}
+\end{equation}
+
+
+\subsubsection{Teste t}
+Após verificar o ajuste do modelo, aplica-se o teste $t$ com o objetivo de avaliar se existe associação linear significativa entre cada variável explicativa \(X_k\) e a variável resposta \(Y_i^*\). Em outras palavras, o teste permite investigar se cada coeficiente estimado difere estatisticamente de zero.
+
+As hipóteses avaliadas são:
+
+\[
+\left\{
+\begin{aligned}
+\text{$H$}_0 &: \text{O coeficiente estimado } \beta_k \text{ é igual a zero} \\
+\text{$H$}_1 &: \text{O coeficiente estimado } \beta_k \text{ é diferente de zero}
+\end{aligned}
+\right.
+\]
+
+A estatística utilizada no teste é dada por:
+
+\[
+t_{\text{obs}} = \frac{\hat{\beta}_k}{s(\hat{\beta}_k)} \sim t_{\,n-(p+1)},
+\]
+
+\noindent em que \(\beta_k\) representa o estimador do parâmetro e \(s(\beta_k)\) corresponde ao seu desvio padrão. Como essa estatística segue a distribuição $t$ de Student com \(n-(p+1)\) graus de liberdade, a decisão é tomada a partir do valor-p: rejeita-se a hipótese nula quando esse valor é inferior ao nível de significância \(\alpha\). Nesse caso, conclui-se que há evidências para o coeficiente em questão ser estatisticamente diferente de zero. 
+
+
+\subsection{Coeficiente de determinação}
+O coeficiente de determinação múltipla, denotado por $R^2$, mede a proporção da variabilidade total da variável resposta \(Y_i^*\) que é explicada pelo modelo. Sua expressão é dada por:
+\begin{equation}
+    R^2 = \frac{\text{SQR}}{\text{SQT}}
+\end{equation}
+
+Esse coeficiente assume valores entre 0 e 1, podendo ser interpretado como um percentual (0\% a 100\%). Valores de $R^2$ próximos de 1 indicam que o modelo explica bem a variabilidade dos dados, enquanto valores próximos de 0 indicam baixo poder explicativo. Um $R^2 = 1$ representa uma relação linear perfeita entre as variáveis explicativas e a resposta.
+
+O $R^2$ tende a aumentar com a inclusão de mais variáveis no modelo, mesmo que estas não contribuam de forma significativa para a explicação da variabilidade da resposta. Por isso, ao comparar modelos com diferentes números de parâmetros, utiliza-se o coeficiente de determinação ajustado, denotado por $R_a^2$, que penaliza a complexidade do modelo. Sua fórmula é:
+\begin{equation}
+    R_a^2 = 1 - \left( \frac{n - 1}{n - p} \right) \frac{\text{SQR}}{\text{SQT}}
+\end{equation}
+
+Esse indicador fornece uma avaliação mais criteriosa da qualidade do ajuste, considerando tanto a variabilidade explicada quanto o número de variáveis envolvidas no modelo.
+
+
+\subsection{Análise dos resíduos}
+A análise dos resíduos é fundamental para verificar se os pressupostos do modelo de regressão estão sendo atendidos. A seguir, apresentam-se algumas das principais análises e testes utilizados:
+
+\begin{itemize}
+    \item[\textbf{•}]Verificação de linearidade:
+\end{itemize}
+Para investigar a presença de relações não lineares, pode-se analisar o gráfico dos resíduos padronizados $e_i^*$ em função dos preditores $x_i$ ou das predições $\hat{y}_i^*$. A expectativa é que os pontos estejam distribuídos aleatoriamente em torno do zero, sem revelar padrões sistemáticos de crescimento ou decrescimento. A presença de qualquer padrão identificável pode ser um indicativo de não linearidade no modelo.
+
+\begin{itemize}
+    \item[\textbf{•}]Verificação de homocedasticidade:
+\end{itemize}
+Para detectar a homocedasticidade, observa-se o mesmo tipo de gráfico ($e_i^* \times x_i$ ou $e_i^* \times \hat{y}_i^*$), esperando-se que a dispersão dos pontos seja homogênea ao longo do eixo horizontal. Caso seja notada uma variação sistemática na amplitude dos resíduos, isso pode indicar violação do pressuposto de homocedasticidade. Um teste formal para esse tipo de análise é o teste de Breusch-Pagan, descrito em \citeonline{kutner2005}, o qual avalia a hipótese nula de homocedasticidade contra a alternativa de variância dos resíduos não constante. A formallização desse teste é apresentado na Seção \ref{sec:breusch}.
+
+\begin{itemize}
+    \item[\textbf{•}]Verificação de normalidade:
+\end{itemize}
+A suposição de normalidade dos erros pode ser avaliada visualmente através do gráfico de probabilidade normal (QQ-plot) dos resíduos. Para complementar, é comum aplicar testes estatísticos como o teste de \citeonline{lilliefors1967}, uma adaptação do teste de Kolmogorov-Smirnov, especialmente útil quando a média e a variância da distribuição não são previamente conhecidas. A formalização desse teste é apresentado na Seção \ref{sec:lilliefors}.
+
+
+\subsubsection{Teste de Breusch-Pagan} \label{sec:breusch}
+O teste de Breusch-Pagan é uma ferramenta amplamente utilizada para avaliar a constância da variância dos erros (homocedasticidade) em modelos de regressão linear. Ele permite testar se a variabilidade dos erros permanece constante ao longo dos valores das variáveis explicativas.
+
+Hipóteses do teste:
+\begin{equation*}
+\begin{cases}
+H_0: \text{A variância dos erros é constante (homocedasticidade)} \\
+H_1: \text{A variância dos erros não é constante (heterocedasticidade)}
+\end{cases}
+\end{equation*}
+
+A estatística do teste de Breusch-Pagan é dada por:
+\begin{equation}
+    X^2_{BP} = \frac{\sum_{i=1}^{n}(\hat{y}_i^* - \bar{y}^*)^2/2}{\left(\sum_{i=1}^{n}(\hat{y}_i^* - \bar{y}^*)^2 / n\right)^2} \sim \chi^2_1
+\end{equation}
+
+Com base na estatística do teste, calcula-se o p-valor correspondente:
+\begin{equation}
+    \textit{p-valor} = P\left(\chi^2_1 > X^2_{BP} \mid H_0\right)
+\end{equation}
+
+Se o valor-p obtido for menor ou igual ao nível de significância \( \alpha \), rejeita-se a hipótese nula \( H_0 \), indicando a presença de heterocedasticidade no modelo, ou seja, a variância dos erros não é constante.
+
+
+\subsubsection{Teste de Lilliefors} \label{sec:lilliefors}
+O teste de Lilliefors é um procedimento utilizado para avaliar se os resíduos de um modelo seguem uma distribuição normal. Trata-se de uma variação do teste de Kolmogorov-Smirnov, com a diferença de que, enquanto o teste de Kolmogorov-Smirnov assume conhecidas a média e a variância da distribuição, o teste de Lilliefors utiliza estimativas desses parâmetros a partir da amostra.
+
+Hipóteses do teste:
+\begin{equation*}
+\begin{cases}
+H_0: \text{Os dados seguem uma distribuição normal} \\
+H_1: \text{Os dados não seguem uma distribuição normal}
+\end{cases}
+\end{equation*}
+
+A estatística do teste corresponde à maior diferença absoluta entre a função de distribuição acumulada dos dados padronizados, denotada por $F_n(z_i)$, e a teórica, representada por $F(z_i)$:
+\begin{equation}
+    D_n = \max|F(z_i) - F_n(z_i)|.
+\end{equation}
+
+Antes de aplicar o teste, é necessário padronizar os valores observados por meio da fórmula:
+\begin{equation}
+    z_i = \frac{y_i^* - \bar{y}^*}{s}, \quad i = 1, 2, \ldots, n,
+\end{equation}
+
+onde o desvio padrão amostral $s$ é calculado como:
+\begin{equation}
+s = \sqrt{ \frac{1}{n - 1} \left[ \sum_{i=1}^{n} (y_i^*)^2 - \frac{\left( \sum_{i=1}^{n} y_i^* \right)^2}{n} \right] }
+\end{equation}
+
+A região crítica do teste é definida por:
+\begin{equation*}
+    RC = \left\{ Z \in R \mid D_n \geq z_{\alpha/2} \right\}.
+\end{equation*}
+
+A hipótese nula é rejeitada ao nível de significância $\alpha$ quando o valor observado de $Z$ pertencer à região crítica.
+
+
+\section{Modelo Proposto}
+A proposta deste trabalho é utilizar a equação \textit{minceriana} \cite{mincer1974} como base para analisar o impacto da escolaridade sobre a renda dos trabalhadores. O objetivo é estimar quanto cada ano adicional de estudo contribui para o aumento na renda do trabalhador. A análise foca em trabalhadores residentes nas capitais brasileiras, com destaque para a comparação entre as regiões do país.
+
+O modelo incorpora variáveis que representam características individuais, como experiência, gênero, cor/raça, condição de chefe de família, vinculação formal ao mercado de trabalho e grupo ocupacional. A equação adotada se baseia na abordagem apresentada por \citeonline{tafner2016}.
+
+O modelo utilizado é definido por:
+
+\begin{equation}
+    y_i^* = \alpha + \sum_{j} \phi_j A_{ij} + \beta_1 B_i + \beta_2 B_i^2 + \beta_3 C_i + \beta_4 D_i + \beta_5 E_i + \beta_6 F_i + \beta_7 G_i + \sum_k \theta_k H_{ik} + \sum_l \lambda_k I_{il} + \varepsilon_i
+\end{equation}
+
+\noindent com $i = 1, \ldots, n$ e
+
+\begin{itemize}
+    \item $y_i^*$: rendimento, em reais, por hora no trabalho principal, na escala logaritmica;
+    \item $A_{ij}$: variáveis \textit{dummies} associadas aos anos de estudo, com $j = 0, 1, \dots, 15$;
+    \item $B_i$: idade (\textit{proxy} de anos de experiência no mercado de trabalho);
+    \item $C_i$: variável \textit{dummy} indicativa de sexo (1 se for feminino e 0 se for masculino);
+    \item $D_i$: variável \textit{dummy} indicativa de cor ou raça (1 se for preto/pardo e 0 se for braco);
+    \item $E_i$: variável \textit{dummy} indicando se é chefe do domicílio (1 se não for chefe do domicílio e 0 caso contrário);
+    \item $F_i$: variável \textit{dummy} indicando se é trabalhador formal (1 se for trabalhador informal e 0 caso contrário);
+    \item $G_i$: variável \textit{dummy} indicando se o trabalhador contribui para a previdência (1 se não contribui e 0 caso contrário);
+    \item $H_{ik}$: variáveis \textit{dummies} para as atividades ocupacionais com $k = 1, 2, \dots, 4$.
+    \item $I_{ik}$: variáveis \textit{dummies} para as capitais do Brasil com $k = 1, 2, \dots, 26$.
+\end{itemize}
+
+\noindent Os parâmetros estimados são:
+
+\begin{itemize}
+    \item $\alpha$: intercepto do modelo;
+    \item $\phi_j$: taxa de retorno para cada ano de escolaridade $0 \leq j \leq 15$;
+    \item $\beta_1$: taxa de retorno da experiência;
+    \item $\beta_2$: coeficiente do quadrado da experiência que representa o perfil rendimento-idade côncavo para baixo;
+    \item $\beta_3$: taxa de retorno pelo fato de ser do sexo feminino;
+    \item $\beta_4$: taxa de retorno pelo fato de ser preto/pardo;
+    \item $\beta_5$: taxa de retorno pelo fato de não ser chefe do domicílio;
+    \item $\beta_6$: taxa de retorno pelo fato de ser trabalhador informal;
+    \item $\beta_7$: taxa de retorno pelo fato de não ser contribuinte da previdência;
+    \item $\theta_k$: efeitos das atividades ocupacionais $1 \leq k \leq 4$;
+    \item $\lambda_k$: efeitos das capitais do Brasil $1 \leq l \leq 26$;
+    \item $\varepsilon_i$: termo de erro aleatório, onde $\varepsilon_i \sim N(0, \sigma^2)$, $\varepsilon_i \indep \varepsilon_k$, $\forall$ $k,i=1,\ldots, n$, $\varepsilon_i \neq \varepsilon_k$.
+\end{itemize}
+
+
+
+
+
+\chapter{Análise dos Resultados} \label{cap:analise_resultados}
+
+Este capítulo está dividido em três partes. A primeira caracteriza a amostra de trabalhadores nas capitais brasileiras. A segunda é dedicada à validação dos pressupostos dos modelos ajustados para cada ano. A última apresenta a interpretação dos resultados obtidos.
+
+As bases da PNAD Contínua referentes ao 2º trimestre dos anos 2016, 2019, 2022 e 2025 continham, respectivamente, 570.653, 551.348, 482.118 e 475.590 observações. Após empilhar as bases por ano e realizar filtros para a formação da base final, como mencionado na Seção \ref{sec:base_de_dados}, obteve-se uma base com 184.264 observações. As manipulações, visualizações, estimações dos modelos e as analises dos testes foram realizados no Programa R \cite{R}.
+
+
+\section{Características dos indivíduos}
+A Tabela \ref{tab:sexo} apresenta a distribuição do sexo das pessoas por ano e região. Observa-se uma leve predominância masculina, com percentuais geralmente entre 51\% e 56\%, dependendo da região. Esse padrão permanece consistente ao longo dos anos, com pequenas variações regionais, com o Norte tendo a maior proporção de homens, enquanto o Sul mostra uma distribuição mais equilibrada entre os sexos.
+\begin{table}[ht]
+\centering
+\caption{Sexo por ano e região}
+\label{tab:sexo}
+\begin{tabular}{llrrrr}
+\toprule
+\multirow{3}{*}{\textbf{Ano}} & \multirow{3}{*}{\textbf{Região}} & \multicolumn{4}{c}{\textbf{Sexo}} \\
+\cmidrule(lr){3-6}
+& & \multicolumn{2}{c}{\textbf{Homem}} & \multicolumn{2}{c}{\textbf{Mulher}} \\
+& & \textbf{n} & \textbf{\%} & \textbf{n} & \textbf{\%} \\
+\midrule
+\multirow{5}{*}{2016} & Norte        & 5.659 & 55,8 & 4.480 & 44,2 \\
+                      & Nordeste     & 7.291 & 53,2 & 6.422 & 46,8 \\
+                      & Centro-Oeste & 4.409 & 52,6 & 3.970 & 47,4 \\
+                      & Sudeste      & 6.838 & 53,5 & 5.940 & 46,5 \\
+                      & Sul          & 2.539 & 51,8 & 2.365 & 48,2 \\
+\midrule
+\multirow{5}{*}{2019} & Norte        & 5.376 & 55,5 & 4.316 & 44,5 \\
+                      & Nordeste     & 6.741 & 52,3 & 6.158 & 47,7 \\
+                      & Centro-Oeste & 4.251 & 52,2 & 3.891 & 47,8 \\
+                      & Sudeste      & 6.441 & 52,3 & 5.877 & 47,7 \\
+                      & Sul          & 2.484 & 52,5 & 2.249 & 47,5 \\
+\midrule
+\multirow{5}{*}{2022} & Norte        & 4.829 & 54,5 & 4.025 & 45,5 \\
+                      & Nordeste     & 5.759 & 52,9 & 5.134 & 47,1 \\
+                      & Centro-Oeste & 3.823 & 51,8 & 3.555 & 48,2 \\
+                      & Sudeste      & 5.582 & 52,1 & 5.124 & 47,9 \\
+                      & Sul          & 2.141 & 50,2 & 2.124 & 49,8 \\
+\midrule
+\multirow{5}{*}{2025} & Norte        & 4.831 & 54,0 & 4.113 & 46,0 \\
+                      & Nordeste     & 6.009 & 51,2 & 5.735 & 48,8 \\
+                      & Centro-Oeste & 3.864 & 52,1 & 3.546 & 47,9 \\
+                      & Sudeste      & 6.045 & 51,5 & 5.688 & 48,5 \\
+                      & Sul          & 2.365 & 51,0 & 2.275 & 49,0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\FloatBarrier
+A composição de cor e raça mostra uma quantidade maior de pessoas Preto/Pardo em todos os anos. Na Tabela \ref{tab:cor_raça} é possível observar que três das regiões possuem maioria Preto/Parda, sendo as regiões Norte e Nordeste as que apresentam os maiores percentuais, acima de 70\%, e o Centro-Oeste acima de 60\%. O Norte é a região com maior proporção em todos os anos. A região Sul apresenta o comportamento inverso, com minoria Preto/Parda e percentuais inferiores a 25\%. Já o Sudeste é a região mais equilibrada, com valores mais próximos entre si ao longo dos anos.
+\begin{table}[ht]
+\centering
+\caption{Cor ou raça por ano e região}
+\label{tab:cor_raça}
+\begin{tabular}{llrrrr}
+\toprule
+\multirow{3}{*}{\textbf{Ano}} & \multirow{3}{*}{\textbf{Região}} & \multicolumn{4}{c}{\textbf{Cor ou Raça}} \\
+\cmidrule(lr){3-6}
+& & \multicolumn{2}{c}{\textbf{Branco}} & \multicolumn{2}{c}{\textbf{Preto/Pardo}} \\
+& & \textbf{n} & \textbf{\%} & \textbf{n} & \textbf{\%} \\
+\midrule
+\multirow{5}{*}{2016} & Norte        & 2.252 & 22,2 & 7.887 & 77,8 \\
+                      & Nordeste     & 3.728 & 27,2 & 9.985 & 72,8 \\
+                      & Centro-Oeste & 3.291 & 39,3 & 5.088 & 60,7 \\
+                      & Sudeste      & 6.871 & 53,8 & 5.907 & 46,2 \\
+                      & Sul          & 4.058 & 82,7 &  846 & 17,3 \\
+\midrule
+\multirow{5}{*}{2019} & Norte        & 2.246 & 23,2 & 7.446 & 76,8 \\
+                      & Nordeste     & 3.469 & 26,9 & 9.430 & 73,1 \\
+                      & Centro-Oeste & 3.156 & 38,8 & 4.986 & 61,2 \\
+                      & Sudeste      & 6.337 & 51,4 & 5.981 & 48,6 \\
+                      & Sul          & 3.747 & 79,2 &  986 & 20,8 \\
+\midrule
+\multirow{5}{*}{2022} & Norte        & 1.967 & 22,2 & 6.887 & 77,8 \\
+                      & Nordeste     & 3.115 & 28,6 & 7.778 & 71,4 \\
+                      & Centro-Oeste & 2.799 & 37,9 & 4.579 & 62,1 \\
+                      & Sudeste      & 5.521 & 51,6 & 5.185 & 48,4 \\
+                      & Sul          & 3.357 & 78,7 &  908 & 21,3 \\
+\midrule
+\multirow{5}{*}{2025} & Norte        & 2.064 & 23,1 & 6.880 & 76,9 \\
+                      & Nordeste     & 3.518 & 30,0 & 8.226 & 70,0 \\
+                      & Centro-Oeste & 2.903 & 39,2 & 4.507 & 60,8 \\
+                      & Sudeste      & 5.980 & 51,0 & 5.753 & 49,0 \\
+                      & Sul          & 3.527 & 76,0 & 1.113 & 24,0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\FloatBarrier
+A Tabela \ref{tab:idade} indica que faixa etária não apresenta grandes diferenças regionais. Em todos os anos, os Adultos representam a maior parte das pessoas, com percentuais próximos ou superiores a 80\% em todas as regiões. Em seguida aparecem os Jovens, variando entre 12\% e 16\%, enquanto Idosos correspondem à menor parcela, geralmente enrte 4\% e 7\%. Esse comportamento se mantém estável ao longo dos anos.
+\begin{table}[ht]
+\centering
+\caption{Faixas etárias por ano e região}
+\label{tab:idade}
+\begin{tabular}{llrrrrrr}
+\toprule
+\multirow{3}{*}{\textbf{Ano}} & \multirow{3}{*}{\textbf{Região}} & \multicolumn{6}{c}{\textbf{Faixa Etária}} \\
+\cmidrule(lr){3-8}
+& & \multicolumn{2}{c}{\textbf{Jovens}} & \multicolumn{2}{c}{\textbf{Adultos}} & \multicolumn{2}{c}{\textbf{Idosos}} \\
+& & \textbf{n} & \textbf{\%} & \textbf{n} & \textbf{\%} & \textbf{n} & \textbf{\%} \\
+\midrule
+\multirow{5}{*}{2016} & Norte        & 1.537 & 15,2 & 8.200 & 80,9 & 402 & 4,0 \\
+                      & Nordeste     & 1.948 & 14,2 & 11.134 & 81,2 & 631 & 4,6 \\
+                      & Centro-Oeste & 1.153 & 13,8 & 6.837 & 81,6 & 389 & 4,6 \\
+                      & Sudeste      & 1.783 & 14,0 & 10.249 & 80,2 & 746 & 5,8 \\
+                      & Sul          & 694 & 14,2 & 3.923 & 80,0 & 287 & 5,9 \\
+\midrule
+\multirow{5}{*}{2019} & Norte        & 1.439 & 14,8 & 7.730 & 79,8 & 523 & 5,4 \\
+                      & Nordeste     & 1.689 & 13,1 & 10.527 & 81,6 & 683 & 5,3 \\
+                      & Centro-Oeste & 1.133 & 13,9 & 6.568 & 80,7 & 441 & 5,4 \\
+                      & Sudeste      & 1.522 & 12,4 & 9.988 & 81,1 & 808 & 6,6 \\
+                      & Sul          & 613 & 13,0 & 3.804 & 80,4 & 316 & 6,7 \\
+\midrule
+\multirow{5}{*}{2022} & Norte        & 1.267 & 14,3 & 7.086 & 80,0 & 501 & 5,7 \\
+                      & Nordeste     & 1.538 & 14,1 & 8.695 & 79,8 & 660 & 6,1 \\
+                      & Centro-Oeste & 982 & 13,3 & 5.974 & 81,0 & 422 & 5,7 \\
+                      & Sudeste      & 1.359 & 12,7 & 8.576 & 80,1 & 771 & 7,2 \\
+                      & Sul          & 561 & 13,2 & 3.411 & 80,0 & 293 & 6,9 \\
+\midrule
+\multirow{5}{*}{2025} & Norte        & 1.268 & 14,2 & 7.146 & 79,9 & 530 & 5,9 \\
+                      & Nordeste     & 1.464 & 12,5 & 9.468 & 80,6 & 812 & 6,9 \\
+                      & Centro-Oeste & 1.040 & 14,0 & 5.916 & 79,8 & 454 & 6,1 \\
+                      & Sudeste      & 1.405 & 12,0 & 9.396 & 80,1 & 932 & 7,9 \\
+                      & Sul          & 614 & 13,2 & 3.696 & 79,7 & 330 & 7,1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\FloatBarrier
+Ao verificar os valores encontrados na Tabela \ref{tab:chefe_domicilio}, é possível ver que a maioria dos chefes de domicílio são homens em todas as regiões, representando cerca de 50\% a 60\% do total. Contudo, percebe-se que mais mulheres estão assumindo essa posição ao longo do tempo, em especial na região Sul, onde elas chegam perto de 50\% no ano 2025. Entre aqueles que não são chefes de domicílio, a quantidade de homens e mulheres é mais equilibrada, onde anos iniciais há predominância feminina em todas as regiões, mas esse padrão se inverte ao longo do período.
+\begin{center}
+\small
+\begin{longtable}{llllrrrr}
+\caption{Sexo de chefe de domicílio por ano e região}
+\label{tab:chefe_domicilio} \\
+\toprule
+\multirow{3}{*}{\textbf{Ano}} & \multirow{3}{*}{\textbf{Região}} & \multicolumn{6}{c}{\textbf{Chefe de Domicílio}} \\
+\cmidrule(lr){3-8}
+& & \multicolumn{3}{c}{\textbf{Sim}} & \multicolumn{3}{c}{\textbf{Não}} \\
+\cmidrule(lr){3-5} \cmidrule(lr){6-8}
+& & \textbf{Sexo} & \textbf{n} & \textbf{\%} & \textbf{Sexo} & \textbf{n} & \textbf{\%} \\
+\midrule
+\endfirsthead
+\toprule
+\multirow{3}{*}{\textbf{Ano}} & \multirow{3}{*}{\textbf{Região}} & \multicolumn{6}{c}{\textbf{Chefe de Domicílio}} \\
+\cmidrule(lr){3-8}
+& & \multicolumn{3}{c}{\textbf{Sim}} & \multicolumn{3}{c}{\textbf{Não}} \\
+\cmidrule(lr){3-5} \cmidrule(lr){6-8}
+& & \textbf{Sexo} & \textbf{n} & \textbf{\%} & \textbf{Sexo} & \textbf{n} & \textbf{\%} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{8}{r}{\small Continuação na próxima página} \\
+\midrule
+\endfoot
+\bottomrule
+\endlastfoot
+\multirow{10}{*}{2016} & \multirow{2}{*}{Norte} & Homem & 3185 & 61,7 & Homem & 2474 & 49,7 \\
+\nopagebreak
+& & Mulher & 1973 & 38,3 & Mulher & 2507 & 50,3 \\
+& \multirow{2}{*}{Nordeste} & Homem & 4068 & 58,9 & Homem & 3223 & 47,3 \\
+\nopagebreak
+& & Mulher & 2838 & 41,1 & Mulher & 3584 & 52,7 \\
+& \multirow{2}{*}{Centro-Oeste} & Homem & 2612 & 59,8 & Homem & 1797 & 44,8 \\
+\nopagebreak
+& & Mulher & 1755 & 40,2 & Mulher & 2215 & 55,2 \\
+& \multirow{2}{*}{Sudeste} & Homem & 4284 & 63,4 & Homem & 2554 & 42,4 \\
+\nopagebreak
+& & Mulher & 2470 & 36,6 & Mulher & 3470 & 57,6 \\
+& \multirow{2}{*}{Sul} & Homem & 1619 & 61,1 & Homem & 920 & 40,8 \\
+\nopagebreak
+& & Mulher & 1031 & 38,9 & Mulher & 1334 & 59,2 \\
+\midrule
+\multirow{10}{*}{2019} & \multirow{2}{*}{Norte} & Homem & 2799 & 58,0 & Homem & 2577 & 53,0 \\
+\nopagebreak
+& & Mulher & 2029 & 42,0 & Mulher & 2287 & 47,0 \\
+& \multirow{2}{*}{Nordeste} & Homem & 3586 & 55,9 & Homem & 3155 & 48,7 \\
+\nopagebreak
+& & Mulher & 2834 & 44,1 & Mulher & 3324 & 51,3 \\
+& \multirow{2}{*}{Centro-Oeste} & Homem & 2341 & 57,1 & Homem & 1910 & 47,2 \\
+\nopagebreak
+& & Mulher & 1756 & 42,9 & Mulher & 2135 & 52,8 \\
+& \multirow{2}{*}{Sudeste} & Homem & 3576 & 57,4 & Homem & 2865 & 47,1 \\
+\nopagebreak
+& & Mulher & 2657 & 42,6 & Mulher & 3220 & 52,9 \\
+& \multirow{2}{*}{Sul} & Homem & 1368 & 56,5 & Homem & 1116 & 48,3 \\
+\nopagebreak
+& & Mulher & 1053 & 43,5 & Mulher & 1196 & 51,7 \\
+\midrule
+\multirow{10}{*}{2022} & \multirow{2}{*}{Norte} & Homem & 2254 & 53,7 & Homem & 2575 & 55,3 \\
+\nopagebreak
+& & Mulher & 1947 & 46,3 & Mulher & 2078 & 44,7 \\
+& \multirow{2}{*}{Nordeste} & Homem & 2701 & 52,1 & Homem & 3058 & 53,6 \\
+\nopagebreak
+& & Mulher & 2487 & 47,9 & Mulher & 2647 & 46,4 \\
+& \multirow{2}{*}{Centro-Oeste} & Homem & 1924 & 52,4 & Homem & 1899 & 51,2 \\
+\nopagebreak
+& & Mulher & 1747 & 47,6 & Mulher & 1808 & 48,8 \\
+& \multirow{2}{*}{Sudeste} & Homem & 2879 & 53,2 & Homem & 2703 & 51,0 \\
+\nopagebreak
+& & Mulher & 2529 & 46,8 & Mulher & 2595 & 49,0 \\
+& \multirow{2}{*}{Sul} & Homem & 1133 & 50,9 & Homem & 1008 & 49,4 \\
+\nopagebreak
+& & Mulher & 1093 & 49,1 & Mulher & 1031 & 50,6 \\
+\midrule
+\multirow{10}{*}{2025} & \multirow{2}{*}{Norte} & Homem & 2359 & 53,0 & Homem & 2472 & 55,0 \\
+\nopagebreak
+& & Mulher & 2092 & 47,0 & Mulher & 2021 & 45,0 \\
+& \multirow{2}{*}{Nordeste} & Homem & 3108 & 51,5 & Homem & 2901 & 50,8 \\
+\nopagebreak
+& & Mulher & 2923 & 48,5 & Mulher & 2812 & 49,2 \\
+& \multirow{2}{*}{Centro-Oeste} & Homem & 2102 & 53,9 & Homem & 1762 & 50,2 \\
+\nopagebreak
+& & Mulher & 1798 & 46,1 & Mulher & 1748 & 49,8 \\
+& \multirow{2}{*}{Sudeste} & Homem & 3225 & 53,1 & Homem & 2820 & 49,8 \\
+\nopagebreak
+& & Mulher & 2847 & 46,9 & Mulher & 2841 & 50,2 \\
+& \multirow{2}{*}{Sul} & Homem & 1264 & 50,8 & Homem & 1101 & 51,2 \\
+\nopagebreak
+& & Mulher & 1225 & 49,2 & Mulher & 1050 & 48,8 \\
+\end{longtable}
+\end{center}
+
+\FloatBarrier
+A Figura \ref{fig:estudo_1} mostra que as pessoas alfabetizadas apresentam rendimentos superiores aos não alfabetizados em todas as regiões do país. Em 2016, entre os alfabetizados, os valores médios variam de R\$12,5/hora no Nordeste a R\$21,2/hora no Sul, enquanto entre os não alfabetizados os rendimentos vão de R\$5,3/hora no Nordeste a R\$6,9/hora no Sul. Esses valores aumentam ao longo do período analisado, atingindo seus maiores níveis em 2025, com alfabetizados variando entre R\$20,9/hora no Norte e R\$37,6/hora no Sul, ao passo que os não alfabetizados variam de R\$7,9/hora no Nordeste a R\$14,1/hora no Centro-Oeste.
+
+A região Sul apresenta o maior rendimento em todos os anos, seguido por Sudeste e Centro-Oeste, que exibem níveis próximos entre si. Norte e Nordeste apresentam os menores valores, com o Nordeste sendo superior apenas em 2025. Entre os não alfabetizados, os rendimentos são baixos e próximos entre as regiões, com pouca variação ao longo dos anos.
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=1\linewidth]{figuras/Estudo_1.png}
+\caption{Rendimento médio dado a condição de alfabetização segundo ano e região} \label{fig:estudo_1}
+\end{figure}
+
+\FloatBarrier
+Como pode ser constado nas Figuras \ref{fig:estudo_2} e \ref{fig:estudo_3}, o rendimento médio tende a aumentar conforme o tempo dedicado ao estudo, com destaque ao aumento acentuado após o ensino médio completo, ou 12 anos de estudo. Em 2016, os rendimentos variam entre R\$5,8/hora no Nordeste e R\$13,9/hora no Sul para indivíduos com até 12 anos de estudo, alcançando valores entre R\$27,2/hora no Nordeste e R\$36,9/hora no Centro-Oeste entre aqueles com ensino superior completo. Em 2025, atingem seus maiores valores, entre R\$8,6/hora no Nordeste e R\$28,6/hora no Sudeste para até 12 anos de estudo, e entre R\$34,9/hora no Norte a R\$55,3/hora no Sul para ensino superior completo.
+
+As diferenças regionais são minímas na maior parte do período, apenas com mais de 12 anos de estudo é perceptível o destaque para as regiões Centro-Oeste, Sudeste e Sul, padrão que se repete em todos os anos.
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=1\linewidth]{figuras/Estudo_2.png}
+\caption{Rendimento médio por nível de escolaridade segundo ano e região} \label{fig:estudo_2}
+\end{figure}
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=1\linewidth]{figuras/Estudo_3.png}
+\caption{Rendimento médio segundo os anos de estudo por ano e região} \label{fig:estudo_3}
+\end{figure}
+
+\FloatBarrier
+Na Figura \ref{fig:trabalho_2}, nota-se que atividades de maior rendimento podem apresentar o dobro do rendimento médio de outras atividades. Em 2016, os rendimentos variavam de R\$5,6/hora no Nordeste a R\$16,4/hora no Sul para atividades de menor rendimento, enquanto atividades com maior rendimento tiveram rendimentos entre R\$25,6/hora no Nordeste a R\$40,5/hora no Centro-Oeste. As distribuições apresentam um comportamento crescente ao longo do período, atingindo seus maiores níveis em 2025, com valores entre R\$9,2/hora no Nordeste e R\$27,9/hora no Sul para atividades de menor rendimento, e entre R\$41,1/hora no Norte a R\$64,3/hora no Centro-Oeste para maiores rendimentos, padrão que se repete ao longo dos anos.
+
+Diferente de análises anteriores, nas atividades remuneradas a região de maior destaque é o Centro-Oeste, provavelmente impulsionado pela presença de Brasília. Regionalmente, Centro-Oeste, Sudeste e Sul apresentam rendimentos superiores de forma consistente, enquanto Norte e Nordeste exibem valores mais baixos em quase todas as categorias profissionais.
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=1\linewidth]{figuras/Trabalho_2.png}
+\caption{Rendimento médio dado a atividade de trabalho segundo ano e região} \label{fig:trabalho_2}
+\end{figure}
+
+\FloatBarrier
+Na Figura \ref{fig:vinculo_1}, observa-se que possuir carteira de trabalho assinada traz pouca diferença na renda das regiões na maior parte dos anos. Contudo, em 2025 esse padrão se altera, possivelmente refletindo efeitos do período pós-pandemia a partir de 2022. Nesse ano, o rendimento médio para quem possui carteira assinada variou de R\$15,6/hora no Norte a R\$27,9/hora no Sudeste e Sul, enquanto para quem não possui carteira assinada oscilou entre R\$15,7/hora no Norte e R\$34,0/hora no Sul, sendo o único ano em que todas as regiões apresentaram rendimentos médios maiores para quem não possui carteira de trabalho.
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=1\linewidth]{figuras/Vínculo_1.png}
+\caption{Rendimento médio dado a assinatura da carteira segundo ano e região} \label{fig:vinculo_1}
+\end{figure}
+
+\FloatBarrier
+As distribuições apresentadas na Figura \ref{fig:trabalho_1} evidenciam que a remuneração média tende a ser superior para trabalhadores com vínculo formal, padrão que se repete na maioria das regiões e anos observados. As exceções ocorrem em 2016 e 2025, quando a informalidade supera formalidade nas regiões com maior rendimento, a Sudeste e Sul. Em 2016 há uma diferença pequena, o rendimento médio do Sudeste foi de R\$18,2/hora para a categoria formal e R\$18,4/hora para a informal. Já em 2025 houve diferenças mais expressivas, o Sudeste variou de R\$32,8/hora a R\$34,9/hora e o Sul de R\$35,7/hora a R\$39,9/hora.
+
+O mesmo padrão de distribuições pode ser observado na Figura \ref{fig:vinculo_2}, sendo a categoria contribuinte a que apresenta os maiores rendimentos. A diferença é que, em 2025, esse comportamento segue o mesmo padrão dos anos anteriores. Nesse ano, as regiões Centro-Oeste, Sudeste e Sul tiveram destaque em relação ao Norte e Nordeste, sendo as únicas a registrarem valores superiores a R\$30,0/hora entre os contribuintes, com máxima de R\$39,2/hora no Sul. Para não contribuintes, essas mesmas regiões também foram as únicas a ultrapassarem a faixa de R\$20,0/hora, com destaque para a região Sul, que alcançou R\$30,2/hora.
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=1\linewidth]{figuras/Trabalho_1.png}
+\caption{Rendimento médio dado a formalidade do trabalho segundo ano e região} \label{fig:trabalho_1}
+\end{figure}
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=1\linewidth]{figuras/Vínculo_2.png}
+\caption{Rendimento médio dado se a pessoa contribui para a previdência segundo ano e região} \label{fig:vinculo_2}
+\end{figure}
+
+\FloatBarrier
+Há uma disparidade regional no rendimento, com as regiões Centro-Oeste, Sudeste e Sul apresentando as maiores medianas em todos os anos, enquanto Norte e Nordeste exibem valores consistentemente menores, conforme mostra a Figura \ref{fig:renda_1}. Ao analisar os boxplots, é observado que as medidas de rendimento aumentam de forma contínua em todas as regiões ao longo dos anos. Em 2016, as medianas variavam de R\$6,5/hora no Nordeste a R\$11,7/hora no Sul, atingindo seus maiores níveis em 2025, quando passaram a variar entre R\$10,6/hora no Nordeste e R\$18,6/hora no Sul. Além disso, nota-se um aumento da variabilidade dos rendimentos, o que indica uma maior dispersão da renda em todas as regiões ao longo do período.
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=1\linewidth]{figuras/Renda_1.png}
+\caption{Boxplot do rendimento até R\$65 por ano e região} \label{fig:renda_1}
+\end{figure}
+
+\FloatBarrier
+Como visto anteriormente, formalidade e contribuição para a previdência apresentam comportamentos semelhantes. Na Tabela \ref{tab:formalidade_prev_rend}, ao cruzar as variáveis com o rendimento médio, fica evidente que, em todas as regiões, ao menos metade das pessoas exerce atividade formal e contribui para a previdência. Entre os trabalhadores informais, observa-se maioria não contribuinte na maior parte das regiões, com exceção da região Sul, onde a maior parte dos informais realiza contribuições previdenciárias.
+
+Apesar de possuir a menor quantidade na maioria das regiões, os informais contribuintes são os que possuem maiores rendimentos médios em todas as regiões, variando entre R\$23,2/hora no Norte e R\$35,3/hora no Sudeste. Os formais contribuintes apresentam rendimentos intermediários, variando de R\$17,6/hora no Nordeste a R\$27,7/hora no Sul. Já os informais não contribuintes possuem os menores rendimentos, com valores entre R\$10,1/hora no Nordeste e R\$20,8/hora no Sul. De modo geral, os maiores rendimentos concentram-se nas regiões Centro-Oeste, Sudeste e Sul, enquanto os menores são observados no Norte e Nordeste.
+\begin{table}[ht]
+\centering
+\caption{Relação da formalidade, contribuição da previdência e rendimento médio por região}
+\label{tab:formalidade_prev_rend}
+\begin{tabular}{lllrrr}
+\toprule
+\textbf{Região} & \textbf{Formalidade} & \textbf{Contribui Prev.} & \textbf{n} & \textbf{\%} & \textbf{Rend. Médio} \\
+\midrule
+\multirow{3}{*}{Norte} & Formal   & Sim & 18.634 & 49,5 & 19,5 \\
+                       & Informal & Sim &  4.039 & 10,7 & 23,2 \\
+                       & Informal & Não & 14.956 & 39,7 & 10,8 \\
+\midrule
+\multirow{3}{*}{Nordeste} & Formal   & Sim & 25.642 & 52,1 & 17,6 \\
+                          & Informal & Sim &  6.945 & 14,1 & 24,1 \\
+                          & Informal & Não & 16.662 & 33,8 & 10,1 \\
+\midrule
+\multirow{3}{*}{Centro-Oeste} & Formal   & Sim & 17.690 & 56,5 & 24,8 \\
+                              & Informal & Sim &  5.360 & 17,1 & 30,1 \\
+                              & Informal & Não &  8.259 & 26,4 & 15,5 \\
+\midrule
+\multirow{3}{*}{Sudeste} & Formal   & Sim & 27.389 & 57,6 & 24,3 \\
+                         & Informal & Sim &  8.905 & 18,7 & 35,3 \\
+                         & Informal & Não & 11.241 & 23,6 & 16,8 \\
+\midrule
+\multirow{3}{*}{Sul} & Formal   & Sim & 10.596 & 57,1 & 27,7 \\
+                     & Informal & Sim &  4.284 & 23,1 & 34,1 \\
+                     & Informal & Não &  3.662 & 19,7 & 20,8 \\
+\bottomrule
+\end{tabular}
+\smallskip
+\small
+\textit{Nota:} Rendimento em R\$/hora.
+\end{table}
+
+
+\FloatBarrier
+\section{Análise dos resultados do modelo}
+As Tabelas \ref{tab:resultados_2016} a \ref{tab:resultados_2025} apresentam os coeficientes estimados dos modelos anuais, buscando identificar como diferentes características educacionais, pessoais e ocupacionais influenciam o rendimento médio das pessoas nas capitais brasileiras. O termo $\exp\{c\}-1$ é utilizado para interpretar os coeficientes estimados das variáveis $dummies$, representando o efeito dessas variáveis sobre o rendimento. O resultado é multiplicado por 100, de modo a expressar o efeito em termos percentuais.
+
+Em todos os modelos, observa-se um comportamento esperado das categorias de anos de estudo: níveis mais elevados de escolaridade tendem a aumentar o rendimento. Para moradores com o ensino médio completo, isto é, 12 anos de estudo, os modelos apresentam, respectivamente, aumentos de 40,5\%, 39,6\%, 43,1\% e 26,1\% no rendimento por hora quando comparados com indivíduos sem instrução ou com menos de um ano de estudo. Ao adicionar mais um ano de estudo, isto é, início do ensino superior, esses rendimentos também aumentam, respectivamente, 67,2\%, 61,9\%, 62,1\% e 40,2\%. Para indivíduos com ensino superior completo, que refere-se a categoria de 16 anos ou mais de estudo, o aumento no rendimento atinge, respectivamente, 184,4\%, 156,0\%, 153,5\% e 125,7\%.
+
+A idade apresenta coeficiente positivo, indicando aumento dos rendimentos conforme o trabalhador acumula experiência. Contudo, o coeficiente é negativo de idade$^2$ reflete o padrão típico de retorno côncavo para baixo: a renda cresce com a experiência, mas em ritmo decrescente, o que é consistente com o ciclo de vida esperado do trabalhador.
+
+Quanto as variáveis que caracterizam o indivíduo fisicamente, os resultados mostram que ser mulher tem um efeito negativo no rendimento em todos os anos, respectivamente, -19,9\%, -18,2\%, -20,0\% e -21,1\%. Os moradores que se identificam como preto/pardo têm rendimento menor que brancos em todos os anos, apresentando redução nos rendimentos de, respectivamente, -11,7\%, -12,0\%, -11,9\% e -12,6\%.
+
+As variáveis chefe do domicílio e formalidade apresentam diferenças relativamente menores nos rendimentos. Em todos os anos, não ser chefe do domicílio reduz o rendimento em, respectivamente, -9,6\%, -8,3\%, -8,4\% e -7,6\%. Já ser trabalhador informal apresenta um efeito positivo e crescente de, respectivamente, 5,5\%, 6,6\%, 9,1\% e 13,5\%. Outra variável crescente, mas com efeito negativo, é contribuinte. Os indivíduos que não contribuem para a previdência tende a ter um rendimento menor em todos os anos, respectivamente, -20,7\%, -24,9\%, -26,6\% e -27,7\%.
+
+Em relação ao rendimento por horas trabalhadas das atividades, quando comparados a categoria de referência com diretores, gerentes e profissionais da ciência/intelectuais, quase todas apresentaram rendimentos inferiores, exceto a atividade quatro, que representa os militares, com aumento na renda em todos os anos com, respectivamente, 34,0\%, 34,0\%, 27,7\% e 30,6\%.
+
+A capital de residência também influencia no rendimento. Quando comparadas à capital Brasília (DF), utilizada como categoria de referência, quase todas apresentaram resultados inferiores, com exceção de Vitória (ES) e Florianópolis (SC) em 2025.
+
+Os coeficientes de determinação indicam uma capacidade moderada de explicação dos modelos. Os valores de $R^2$ mostram que, respectivamente, 50,24\%, 49,06\%, 45,78\% e 46,96\% da variabilidade do logaritmo do rendimento por hora trabalhada é explicada pelos modelos. Os valores de $R^2_a$ são próximos, sendo, respectivamente, 50,18\%, 49,00\%, 45,71\% e 46,89\%.
+\FloatBarrier
+\begin{center}
+\small
+\begin{longtable}{lccccc}
+\caption{Resultados da estimação dos coeficientes - Modelo 2016}
+\label{tab:resultados_2016} \\
+\toprule
+\multirow{2}{*}{Variável} & Coeficiente & Desvio & \multirow{2}{*}{Valor-p} & Intervalo de & \multirow{2}{*}{$(\exp\{c\}-1)\times 100$} \\
+& Estimado ($c$) & Padrão & & Confiança 95\% & \\
+\midrule
+\endfirsthead
+
+\toprule
+\multirow{2}{*}{Variável} & Coeficiente & Desvio & \multirow{2}{*}{Valor-p} & Intervalo de & \multirow{2}{*}{$(\exp\{c\}-1)\times 100$} \\
+& Estimado ($c$) & Padrão & & Confiança 95\% & \\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{6}{r}{\small Continuação na próxima página} \\
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+(Constante) & 1,7376 & 0,0527 & 0,000 & [1,6343 ; 1,8409] & 468,4 \\
+Escolaridade1 & 0,0437 & 0,0264 & 0,097 & [-0,0079 ; 0,0954] & 4,5 \\
+Escolaridade2 & -0,0409 & 0,0409 & 0,318 & [-0,1210 ; 0,0393] & -4,0 \\
+Escolaridade3 & -0,0279 & 0,0352 & 0,428 & [-0,0970 ; 0,0412] & -2,8 \\
+Escolaridade4 & 0,0037 & 0,0312 & 0,906 & [-0,0575 ; 0,0649] & 0,4 \\
+Escolaridade5 & 0,0257 & 0,0235 & 0,273 & [-0,0203 ; 0,0718] & 2,6 \\
+Escolaridade6 & 0,0565 & 0,0243 & 0,020 & [0,0088 ; 0,1042] & 5,8 \\
+Escolaridade7 & 0,1180 & 0,0266 & 0,000 & [0,0658 ; 0,1702] & 12,5 \\
+Escolaridade8 & 0,1071 & 0,0262 & 0,000 & [0,0557 ; 0,1585] & 11,3 \\
+Escolaridade9 & 0,1738 & 0,0215 & 0,000 & [0,1316 ; 0,2160] & 19,0 \\
+Escolaridade10 & 0,1856 & 0,0283 & 0,000 & [0,1301 ; 0,2412] & 20,4 \\
+Escolaridade11 & 0,2088 & 0,0273 & 0,000 & [0,1552 ; 0,2624] & 23,2 \\
+Escolaridade12 & 0,3400 & 0,0203 & 0,000 & [0,3002 ; 0,3799] & 40,5 \\
+Escolaridade13 & 0,5138 & 0,0253 & 0,000 & [0,4642 ; 0,5633] & 67,2 \\
+Escolaridade14 & 0,6367 & 0,0264 & 0,000 & [0,5850 ; 0,6884] & 89,0 \\
+Escolaridade15 & 0,6438 & 0,0261 & 0,000 & [0,5926 ; 0,6950] & 90,4 \\
+Escolaridade16 & 1,0452 & 0,0214 & 0,000 & [1,0033 ; 1,0871] & 184,4 \\
+Idade & 0,0350 & 0,0022 & 0,000 & [0,0307 ; 0,0394] & 3,6 \\
+Idade$^2$ & -0,0003 & 0,0000 & 0,000 & [-0,0003 ; -0,0002] & 0,0 \\
+Sexo & -0,2223 & 0,0059 & 0,000 & [-0,2339 ; -0,2108] & -19,9 \\
+Cor & -0,1249 & 0,0062 & 0,000 & [-0,1372 ; -0,1127] & -11,7 \\
+Chefe & -0,1011 & 0,0056 & 0,000 & [-0,1121 ; -0,0900] & -9,6 \\
+Formalidade & 0,0539 & 0,0080 & 0,000 & [0,0383 ; 0,0695] & 5,5 \\
+Contribuinte & -0,2320 & 0,0091 & 0,000 & [-0,2498 ; -0,2142] & -20,7 \\
+Atividade2 & -0,3851 & 0,0085 & 0,000 & [-0,4018 ; -0,3683] & -32,0 \\
+Atividade3 & -0,4184 & 0,0108 & 0,000 & [-0,4396 ; -0,3972] & -34,2 \\
+Atividade4 & 0,2930 & 0,0219 & 0,000 & [0,2500 ; 0,3360] & 34,0 \\
+Atividade5 & -0,5148 & 0,0116 & 0,000 & [-0,5376 ; -0,4920] & -40,2 \\
+Porto Velho (RO) & -0,2075 & 0,0203 & 0,000 & [-0,2473 ; -0,1678] & -18,7 \\
+Rio Branco (AC) & -0,2394 & 0,0170 & 0,000 & [-0,2727 ; -0,2061] & -21,3 \\
+Manaus (AM) & -0,2975 & 0,0153 & 0,000 & [-0,3276 ; -0,2674] & -25,7 \\
+Boa Vista (RR) & -0,2458 & 0,0189 & 0,000 & [-0,2828 ; -0,2088] & -21,8 \\
+Belém (PA) & -0,3548 & 0,0179 & 0,000 & [-0,3899 ; -0,3197] & -29,9 \\
+Macapá (AP) & -0,2505 & 0,0220 & 0,000 & [-0,2937 ; -0,2073] & -22,2 \\
+Palmas (TO) & -0,1728 & 0,0252 & 0,000 & [-0,2221 ; -0,1235] & -15,9 \\
+São Luís (MA) & -0,3990 & 0,0171 & 0,000 & [-0,4325 ; -0,3654] & -32,9 \\
+Teresina (PI) & -0,3669 & 0,0192 & 0,000 & [-0,4045 ; -0,3292] & -30,7 \\
+Fortaleza (CE) & -0,3852 & 0,0154 & 0,000 & [-0,4154 ; -0,3551] & -32,0 \\
+Natal (RN) & -0,4071 & 0,0204 & 0,000 & [-0,4472 ; -0,3671] & -33,4 \\
+João Pessoa (PB) & -0,3478 & 0,0193 & 0,000 & [-0,3856 ; -0,3099] & -29,4 \\
+Recife (PE) & -0,3732 & 0,0197 & 0,000 & [-0,4119 ; -0,3346] & -31,1 \\
+Maceió (AL) & -0,3658 & 0,0167 & 0,000 & [-0,3985 ; -0,3330] & -30,6 \\
+Aracaju (SE) & -0,3102 & 0,0223 & 0,000 & [-0,3539 ; -0,2664] & -26,7 \\
+Salvador (BA) & -0,3854 & 0,0180 & 0,000 & [-0,4208 ; -0,3501] & -32,0 \\
+Belo Horizonte (MG) & -0,1971 & 0,0160 & 0,000 & [-0,2284 ; -0,1658] & -17,9 \\
+Vitória (ES) & -0,1353 & 0,0208 & 0,000 & [-0,1760 ; -0,0946] & -12,7 \\
+Rio de Janeiro (RJ) & -0,1634 & 0,0127 & 0,000 & [-0,1882 ; -0,1386] & -15,1 \\
+São Paulo (SP) & -0,1637 & 0,0134 & 0,000 & [-0,1900 ; -0,1373] & -15,1 \\
+Curitiba (PR) & -0,1287 & 0,0167 & 0,000 & [-0,1614 ; -0,0960] & -12,1 \\
+Florianópolis (SC) & -0,1157 & 0,0213 & 0,000 & [-0,1575 ; -0,0740] & -10,9 \\
+Porto Alegre (RS) & -0,1648 & 0,0172 & 0,000 & [-0,1985 ; -0,1312] & -15,2 \\
+Campo Grande (MS) & -0,1982 & 0,0181 & 0,000 & [-0,2337 ; -0,1627] & -18,0 \\
+Cuiabá (MT) & -0,1638 & 0,0215 & 0,000 & [-0,2060 ; -0,1216] & -15,1 \\
+Goiânia (GO) & -0,1849 & 0,0172 & 0,000 & [-0,2186 ; -0,1513] & -16,9 \\
+\midrule
+\multicolumn{6}{l}{$n = 49.913$ \hspace{2cm} $R^2 = 0,5024$ \hspace{2cm} $R^2_a = 0,5018$} \\
+\end{longtable}
+\end{center}
+
+\begin{center}
+\small
+\begin{longtable}{lccccc}
+\caption{Resultados da estimação dos coeficientes - Modelo 2019}
+\label{tab:resultados_2019} \\
+\toprule
+\multirow{2}{*}{Variável} & Coeficiente & Desvio & \multirow{2}{*}{Valor-p} & Intervalo de & \multirow{2}{*}{$(\exp\{c\}-1)\times 100$} \\
+& Estimado ($c$) & Padrão & & Confiança 95\% & \\
+\midrule
+\endfirsthead
+
+\toprule
+\multirow{2}{*}{Variável} & Coeficiente & Desvio & \multirow{2}{*}{Valor-p} & Intervalo de & \multirow{2}{*}{$(\exp\{c\}-1)\times 100$} \\
+& Estimado ($c$) & Padrão & & Confiança 95\% & \\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{6}{r}{\small Continuação na próxima página} \\
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+(Constante) & 1,7356 & 0,0584 & 0,000 & [1,6211 ; 1,8501] & 467,2 \\
+Escolaridade1 & -0,0308 & 0,0478 & 0,520 & [-0,1245 ; 0,0629] & -3,0 \\
+Escolaridade2 & -0,0877 & 0,0467 & 0,060 & [-0,1792 ; 0,0038] & -8,4 \\
+Escolaridade3 & -0,0789 & 0,0423 & 0,062 & [-0,1618 ; 0,0039] & -7,6 \\
+Escolaridade4 & 0,0326 & 0,0366 & 0,373 & [-0,0392 ; 0,1043] & 3,3 \\
+Escolaridade5 & 0,0347 & 0,0305 & 0,256 & [-0,0251 ; 0,0944] & 3,5 \\
+Escolaridade6 & 0,0743 & 0,0309 & 0,016 & [0,0137 ; 0,1348] & 7,7 \\
+Escolaridade7 & 0,1342 & 0,0329 & 0,000 & [0,0697 ; 0,1987] & 14,4 \\
+Escolaridade8 & 0,1762 & 0,0320 & 0,000 & [0,1135 ; 0,2389] & 19,3 \\
+Escolaridade9 & 0,1822 & 0,0289 & 0,000 & [0,1255 ; 0,2388] & 20,0 \\
+Escolaridade10 & 0,2093 & 0,0331 & 0,000 & [0,1445 ; 0,2742] & 23,3 \\
+Escolaridade11 & 0,2514 & 0,0329 & 0,000 & [0,1869 ; 0,3160] & 28,6 \\
+Escolaridade12 & 0,3334 & 0,0273 & 0,000 & [0,2800 ; 0,3869] & 39,6 \\
+Escolaridade13 & 0,4817 & 0,0315 & 0,000 & [0,4200 ; 0,5435] & 61,9 \\
+Escolaridade14 & 0,6159 & 0,0316 & 0,000 & [0,5540 ; 0,6779] & 85,1 \\
+Escolaridade15 & 0,6111 & 0,0322 & 0,000 & [0,5480 ; 0,6741] & 84,2 \\
+Escolaridade16 & 0,9400 & 0,0281 & 0,000 & [0,8849 ; 0,9951] & 156,0 \\
+Idade & 0,0404 & 0,0024 & 0,000 & [0,0358 ; 0,0451] & 4,1 \\
+Idade$^2$ & -0,0003 & 0,0000 & 0,000 & [-0,0004 ; -0,0003] & 0,0 \\
+Sexo & -0,2009 & 0,0062 & 0,000 & [-0,2131 ; -0,1887] & -18,2 \\
+Cor & -0,1280 & 0,0066 & 0,000 & [-0,1410 ; -0,1151] & -12,0 \\
+Chefe & -0,0868 & 0,0060 & 0,000 & [-0,0985 ; -0,0751] & -8,3 \\
+Formalidade & 0,0635 & 0,0087 & 0,000 & [0,0464 ; 0,0805] & 6,6 \\
+Contribuinte & -0,2864 & 0,0096 & 0,000 & [-0,3051 ; -0,2677] & -24,9 \\
+Atividade2 & -0,4808 & 0,0091 & 0,000 & [-0,4987 ; -0,4629] & -38,2 \\
+Atividade3 & -0,5443 & 0,0116 & 0,000 & [-0,5670 ; -0,5216] & -42,0 \\
+Atividade4 & 0,2930 & 0,0235 & 0,000 & [0,2469 ; 0,3392] & 34,0 \\
+Atividade5 & -0,6473 & 0,0128 & 0,000 & [-0,6723 ; -0,6223] & -47,7 \\
+Porto Velho (RO) & -0,1555 & 0,0224 & 0,000 & [-0,1994 ; -0,1116] & -14,4 \\
+Rio Branco (AC) & -0,2022 & 0,0183 & 0,000 & [-0,2380 ; -0,1663] & -18,3 \\
+Manaus (AM) & -0,3244 & 0,0164 & 0,000 & [-0,3566 ; -0,2923] & -27,7 \\
+Boa Vista (RR) & -0,2342 & 0,0203 & 0,000 & [-0,2740 ; -0,1944] & -20,9 \\
+Belém (PA) & -0,3451 & 0,0195 & 0,000 & [-0,3834 ; -0,3068] & -29,2 \\
+Macapá (AP) & -0,1659 & 0,0228 & 0,000 & [-0,2106 ; -0,1213] & -15,3 \\
+Palmas (TO) & -0,1470 & 0,0261 & 0,000 & [-0,1981 ; -0,0959] & -13,7 \\
+São Luís (MA) & -0,3213 & 0,0185 & 0,000 & [-0,3575 ; -0,2851] & -27,5 \\
+Teresina (PI) & -0,2909 & 0,0206 & 0,000 & [-0,3312 ; -0,2505] & -25,2 \\
+Fortaleza (CE) & -0,3436 & 0,0165 & 0,000 & [-0,3759 ; -0,3112] & -29,1 \\
+Natal (RN) & -0,3568 & 0,0226 & 0,000 & [-0,4010 ; -0,3126] & -30,0 \\
+João Pessoa (PB) & -0,2976 & 0,0203 & 0,000 & [-0,3374 ; -0,2578] & -25,7 \\
+Recife (PE) & -0,3468 & 0,0213 & 0,000 & [-0,3886 ; -0,3051] & -29,3 \\
+Maceió (AL) & -0,3024 & 0,0186 & 0,000 & [-0,3388 ; -0,2659] & -26,1 \\
+Aracaju (SE) & -0,2795 & 0,0234 & 0,000 & [-0,3253 ; -0,2336] & -24,4 \\
+Salvador (BA) & -0,4171 & 0,0195 & 0,000 & [-0,4553 ; -0,3789] & -34,1 \\
+Belo Horizonte (MG) & -0,1544 & 0,0169 & 0,000 & [-0,1875 ; -0,1212] & -14,3 \\
+Vitória (ES) & -0,1070 & 0,0218 & 0,000 & [-0,1497 ; -0,0642] & -10,1 \\
+Rio de Janeiro (RJ) & -0,1325 & 0,0136 & 0,000 & [-0,1591 ; -0,1059] & -12,4 \\
+São Paulo (SP) & -0,0943 & 0,0144 & 0,000 & [-0,1225 ; -0,0660] & -9,0 \\
+Curitiba (PR) & -0,0852 & 0,0177 & 0,000 & [-0,1199 ; -0,0506] & -8,2 \\
+Florianópolis (SC) & -0,0610 & 0,0227 & 0,007 & [-0,1055 ; -0,0166] & -5,9 \\
+Porto Alegre (RS) & -0,0487 & 0,0185 & 0,008 & [-0,0850 ; -0,0125] & -4,8 \\
+Campo Grande (MS) & -0,1420 & 0,0192 & 0,000 & [-0,1795 ; -0,1044] & -13,2 \\
+Cuiabá (MT) & -0,1513 & 0,0233 & 0,000 & [-0,1969 ; -0,1057] & -14,0 \\
+Goiânia (GO) & -0,1481 & 0,0182 & 0,000 & [-0,1837 ; -0,1125] & -13,8 \\
+\midrule
+\multicolumn{6}{l}{$n = 47.784$ \hspace{2cm} $R^2 = 0,4906$ \hspace{2cm} $R^2_a = 0,4900$} \\
+\end{longtable}
+\end{center}
+
+\begin{center}
+\small
+\begin{longtable}{lccccc}
+\caption{Resultados da estimação dos coeficientes - Modelo 2022}
+\label{tab:resultados_2022} \\
+\toprule
+\multirow{2}{*}{Variável} & Coeficiente & Desvio & \multirow{2}{*}{Valor-p} & Intervalo de & \multirow{2}{*}{$(\exp\{c\}-1)\times 100$} \\
+& Estimado ($c$) & Padrão & & Confiança 95\% & \\
+\midrule
+\endfirsthead
+
+\toprule
+\multirow{2}{*}{Variável} & Coeficiente & Desvio & \multirow{2}{*}{Valor-p} & Intervalo de & \multirow{2}{*}{$(\exp\{c\}-1)\times 100$} \\
+& Estimado ($c$) & Padrão & & Confiança 95\% & \\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{6}{r}{\small Continuação na próxima página} \\
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+(Constante) & 1,9492 & 0,0622 & 0,000 & [1,8272 ; 2,0712] & 602,3 \\
+Escolaridade1 & -0,0083 & 0,0461 & 0,857 & [-0,0987 ; 0,0821] & -0,8 \\
+Escolaridade2 & -0,0050 & 0,0506 & 0,921 & [-0,1043 ; 0,0943] & -0,5 \\
+Escolaridade3 & -0,0207 & 0,0462 & 0,654 & [-0,1113 ; 0,0699] & -2,0 \\
+Escolaridade4 & 0,0510 & 0,0423 & 0,228 & [-0,0320 ; 0,1340] & 5,2 \\
+Escolaridade5 & 0,0890 & 0,0327 & 0,007 & [0,0249 ; 0,1531] & 9,3 \\
+Escolaridade6 & 0,1007 & 0,0323 & 0,002 & [0,0375 ; 0,1640] & 10,6 \\
+Escolaridade7 & 0,1862 & 0,0348 & 0,000 & [0,1180 ; 0,2544] & 20,5 \\
+Escolaridade8 & 0,1776 & 0,0337 & 0,000 & [0,1116 ; 0,2436] & 19,4 \\
+Escolaridade9 & 0,1955 & 0,0299 & 0,000 & [0,1369 ; 0,2540] & 21,6 \\
+Escolaridade10 & 0,2524 & 0,0349 & 0,000 & [0,1840 ; 0,3209] & 28,7 \\
+Escolaridade11 & 0,2509 & 0,0348 & 0,000 & [0,1828 ; 0,3191] & 28,5 \\
+Escolaridade12 & 0,3584 & 0,0276 & 0,000 & [0,3042 ; 0,4125] & 43,1 \\
+Escolaridade13 & 0,4831 & 0,0325 & 0,000 & [0,4193 ; 0,5468] & 62,1 \\
+Escolaridade14 & 0,6000 & 0,0328 & 0,000 & [0,5357 ; 0,6642] & 82,2 \\
+Escolaridade15 & 0,6201 & 0,0330 & 0,000 & [0,5553 ; 0,6849] & 85,9 \\
+Escolaridade16 & 0,9303 & 0,0286 & 0,000 & [0,8743 ; 0,9863] & 153,5 \\
+Idade & 0,0357 & 0,0025 & 0,000 & [0,0307 ; 0,0407] & 3,6 \\
+Idade$^2$ & -0,0003 & 0,0000 & 0,000 & [-0,0003 ; -0,0002] & 0,0 \\
+Sexo & -0,2237 & 0,0068 & 0,000 & [-0,2369 ; -0,2104] & -20,0 \\
+Cor & -0,1263 & 0,0072 & 0,000 & [-0,1404 ; -0,1122] & -11,9 \\
+Chefe & -0,0880 & 0,0065 & 0,000 & [-0,1007 ; -0,0754] & -8,4 \\
+Formalidade & 0,0874 & 0,0091 & 0,000 & [0,0695 ; 0,1053] & 9,1 \\
+Contribuinte & -0,3086 & 0,0101 & 0,000 & [-0,3284 ; -0,2888] & -26,6 \\
+Atividade2 & -0,4554 & 0,0098 & 0,000 & [-0,4746 ; -0,4362] & -36,6 \\
+Atividade3 & -0,5123 & 0,0125 & 0,000 & [-0,5369 ; -0,4878] & -40,1 \\
+Atividade4 & 0,2448 & 0,0262 & 0,000 & [0,1934 ; 0,2962] & 27,7 \\
+Atividade5 & -0,6142 & 0,0138 & 0,000 & [-0,6412 ; -0,5872] & -45,9 \\
+Porto Velho (RO) & -0,1874 & 0,0235 & 0,000 & [-0,2335 ; -0,1413] & -17,1 \\
+Rio Branco (AC) & -0,1380 & 0,0201 & 0,000 & [-0,1773 ; -0,0986] & -12,9 \\
+Manaus (AM) & -0,2700 & 0,0174 & 0,000 & [-0,3040 ; -0,2359] & -23,7 \\
+Boa Vista (RR) & -0,1926 & 0,0218 & 0,000 & [-0,2353 ; -0,1499] & -17,5 \\
+Belém (PA) & -0,3335 & 0,0211 & 0,000 & [-0,3749 ; -0,2920] & -28,4 \\
+Macapá (AP) & -0,2115 & 0,0248 & 0,000 & [-0,2601 ; -0,1629] & -19,1 \\
+Palmas (TO) & -0,1371 & 0,0296 & 0,000 & [-0,1952 ; -0,0790] & -12,8 \\
+São Luís (MA) & -0,3597 & 0,0214 & 0,000 & [-0,4017 ; -0,3177] & -30,2 \\
+Teresina (PI) & -0,3014 & 0,0225 & 0,000 & [-0,3456 ; -0,2572] & -26,0 \\
+Fortaleza (CE) & -0,3472 & 0,0189 & 0,000 & [-0,3843 ; -0,3101] & -29,3 \\
+Natal (RN) & -0,3405 & 0,0249 & 0,000 & [-0,3892 ; -0,2918] & -28,9 \\
+João Pessoa (PB) & -0,3437 & 0,0223 & 0,000 & [-0,3875 ; -0,2999] & -29,1 \\
+Recife (PE) & -0,4293 & 0,0230 & 0,000 & [-0,4745 ; -0,3842] & -34,9 \\
+Maceió (AL) & -0,3649 & 0,0189 & 0,000 & [-0,4018 ; -0,3279] & -30,6 \\
+Aracaju (SE) & -0,3181 & 0,0263 & 0,000 & [-0,3697 ; -0,2664] & -27,2 \\
+Salvador (BA) & -0,3752 & 0,0224 & 0,000 & [-0,4191 ; -0,3312] & -31,3 \\
+Belo Horizonte (MG) & -0,1483 & 0,0183 & 0,000 & [-0,1842 ; -0,1125] & -13,8 \\
+Vitória (ES) & -0,1025 & 0,0259 & 0,000 & [-0,1533 ; -0,0516] & -9,7 \\
+Rio de Janeiro (RJ) & -0,1059 & 0,0148 & 0,000 & [-0,1349 ; -0,0769] & -10,0 \\
+São Paulo (SP) & -0,0989 & 0,0157 & 0,000 & [-0,1296 ; -0,0682] & -9,4 \\
+Curitiba (PR) & -0,0484 & 0,0191 & 0,011 & [-0,0858 ; -0,0110] & -4,7 \\
+Florianópolis (SC) & -0,0396 & 0,0233 & 0,090 & [-0,0853 ; 0,0061] & -3,9 \\
+Porto Alegre (RS) & -0,1069 & 0,0207 & 0,000 & [-0,1474 ; -0,0663] & -10,1 \\
+Campo Grande (MS) & -0,0798 & 0,0209 & 0,000 & [-0,1209 ; -0,0388] & -7,7 \\
+Cuiabá (MT) & -0,1107 & 0,0243 & 0,000 & [-0,1583 ; -0,0632] & -10,5 \\
+Goiânia (GO) & -0,0563 & 0,0196 & 0,004 & [-0,0946 ; -0,0180] & -5,5 \\
+\midrule
+\multicolumn{6}{l}{$n = 42.096$ \hspace{2cm} $R^2 = 0,4578$ \hspace{2cm} $R^2_a = 0,4571$} \\
+\end{longtable}
+\end{center}
+
+\begin{center}
+\small
+\begin{longtable}{lccccc}
+\caption{Resultados da estimação dos coeficientes - Modelo 2025}
+\label{tab:resultados_2025} \\
+\toprule
+\multirow{2}{*}{Variável} & Coeficiente & Desvio & \multirow{2}{*}{Valor-p} & Intervalo de & \multirow{2}{*}{$(\exp\{c\}-1)\times 100$} \\
+& Estimado ($c$) & Padrão & & Confiança 95\% & \\
+\midrule
+\endfirsthead
+
+\toprule
+\multirow{2}{*}{Variável} & Coeficiente & Desvio & \multirow{2}{*}{Valor-p} & Intervalo de & \multirow{2}{*}{$(\exp\{c\}-1)\times 100$} \\
+& Estimado ($c$) & Padrão & & Confiança 95\% & \\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{6}{r}{\small Continuação na próxima página} \\
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+(Constante) & 2,2559 & 0,0609 & 0,000 & [2,1365 ; 2,3753] & 854,4 \\
+Escolaridade1 & -0,0223 & 0,0500 & 0,655 & [-0,1202 ; 0,0756] & -2,2 \\
+Escolaridade2 & -0,0655 & 0,0607 & 0,280 & [-0,1844 ; 0,0534] & -6,3 \\
+Escolaridade3 & -0,0510 & 0,0500 & 0,308 & [-0,1491 ; 0,0471] & -5,0 \\
+Escolaridade4 & -0,0265 & 0,0438 & 0,545 & [-0,1122 ; 0,0593] & -2,6 \\
+Escolaridade5 & -0,0392 & 0,0352 & 0,266 & [-0,1082 ; 0,0299] & -3,8 \\
+Escolaridade6 & 0,0023 & 0,0349 & 0,948 & [-0,0660 ; 0,0706] & 0,2 \\
+Escolaridade7 & 0,0529 & 0,0370 & 0,152 & [-0,0196 ; 0,1254] & 5,4 \\
+Escolaridade8 & 0,0629 & 0,0366 & 0,085 & [-0,0087 ; 0,1346] & 6,5 \\
+Escolaridade9 & 0,1102 & 0,0323 & 0,001 & [0,0469 ; 0,1735] & 11,7 \\
+Escolaridade10 & 0,1033 & 0,0369 & 0,005 & [0,0310 ; 0,1756] & 10,9 \\
+Escolaridade11 & 0,1470 & 0,0363 & 0,000 & [0,0759 ; 0,2181] & 15,8 \\
+Escolaridade12 & 0,2317 & 0,0298 & 0,000 & [0,1734 ; 0,2900] & 26,1 \\
+Escolaridade13 & 0,3380 & 0,0338 & 0,000 & [0,2718 ; 0,4041] & 40,2 \\
+Escolaridade14 & 0,4238 & 0,0336 & 0,000 & [0,3579 ; 0,4896] & 52,8 \\
+Escolaridade15 & 0,4713 & 0,0344 & 0,000 & [0,4038 ; 0,5387] & 60,2 \\
+Escolaridade16 & 0,8140 & 0,0305 & 0,000 & [0,7542 ; 0,8737] & 125,7 \\
+Idade & 0,0373 & 0,0024 & 0,000 & [0,0325 ; 0,0420] & 3,8 \\
+Idade$^2$ & -0,0003 & 0,0000 & 0,000 & [-0,0004 ; -0,0003] & 0,0 \\
+Sexo & -0,2365 & 0,0065 & 0,000 & [-0,2493 ; -0,2238] & -21,1 \\
+Cor & -0,1346 & 0,0069 & 0,000 & [-0,1481 ; -0,1211] & -12,6 \\
+Chefe & -0,0792 & 0,0062 & 0,000 & [-0,0914 ; -0,0670] & -7,6 \\
+Formalidade & 0,1267 & 0,0086 & 0,000 & [0,1098 ; 0,1435] & 13,5 \\
+Contribuinte & -0,3248 & 0,0098 & 0,000 & [-0,3439 ; -0,3056] & -27,7 \\
+Atividade2 & -0,4575 & 0,0091 & 0,000 & [-0,4754 ; -0,4396] & -36,7 \\
+Atividade3 & -0,5359 & 0,0121 & 0,000 & [-0,5596 ; -0,5123] & -41,5 \\
+Atividade4 & 0,2673 & 0,0253 & 0,000 & [0,2177 ; 0,3169] & 30,6 \\
+Atividade5 & -0,6460 & 0,0134 & 0,000 & [-0,6723 ; -0,6197] & -47,6 \\
+Porto Velho (RO) & -0,1149 & 0,0240 & 0,000 & [-0,1620 ; -0,0678] & -10,9 \\
+Rio Branco (AC) & -0,2468 & 0,0195 & 0,000 & [-0,2849 ; -0,2086] & -21,9 \\
+Manaus (AM) & -0,2676 & 0,0175 & 0,000 & [-0,3019 ; -0,2333] & -23,5 \\
+Boa Vista (RR) & -0,2034 & 0,0211 & 0,000 & [-0,2448 ; -0,1619] & -18,4 \\
+Belém (PA) & -0,3004 & 0,0204 & 0,000 & [-0,3404 ; -0,2604] & -25,9 \\
+Macapá (AP) & -0,1184 & 0,0246 & 0,000 & [-0,1666 ; -0,0702] & -11,2 \\
+Palmas (TO) & -0,0647 & 0,0276 & 0,019 & [-0,1188 ; -0,0105] & -6,3 \\
+São Luís (MA) & -0,2415 & 0,0204 & 0,000 & [-0,2815 ; -0,2015] & -21,5 \\
+Teresina (PI) & -0,3037 & 0,0221 & 0,000 & [-0,3470 ; -0,2604] & -26,2 \\
+Fortaleza (CE) & -0,3015 & 0,0184 & 0,000 & [-0,3376 ; -0,2654] & -26,0 \\
+Natal (RN) & -0,3323 & 0,0239 & 0,000 & [-0,3791 ; -0,2856] & -28,3 \\
+João Pessoa (PB) & -0,3044 & 0,0219 & 0,000 & [-0,3473 ; -0,2615] & -26,2 \\
+Recife (PE) & -0,3074 & 0,0217 & 0,000 & [-0,3501 ; -0,2648] & -26,5 \\
+Maceió (AL) & -0,2920 & 0,0180 & 0,000 & [-0,3273 ; -0,2566] & -25,3 \\
+Aracaju (SE) & -0,2355 & 0,0248 & 0,000 & [-0,2841 ; -0,1868] & -21,0 \\
+Salvador (BA) & -0,3520 & 0,0214 & 0,000 & [-0,3940 ; -0,3100] & -29,7 \\
+Belo Horizonte (MG) & -0,1147 & 0,0175 & 0,000 & [-0,1491 ; -0,0804] & -10,8 \\
+Vitória (ES) & 0,0120 & 0,0247 & 0,626 & [-0,0363 ; 0,0604] & 1,2 \\
+Rio de Janeiro (RJ) & -0,0941 & 0,0143 & 0,000 & [-0,1222 ; -0,0660] & -9,0 \\
+São Paulo (SP) & -0,0443 & 0,0151 & 0,003 & [-0,0738 ; -0,0147] & -4,3 \\
+Curitiba (PR) & -0,0270 & 0,0182 & 0,137 & [-0,0626 ; 0,0086] & -2,7 \\
+Florianópolis (SC) & 0,0783 & 0,0234 & 0,001 & [0,0324 ; 0,1241] & 8,1 \\
+Porto Alegre (RS) & -0,0476 & 0,0194 & 0,014 & [-0,0857 ; -0,0095] & -4,6 \\
+Campo Grande (MS) & -0,0714 & 0,0208 & 0,001 & [-0,1121 ; -0,0307] & -6,9 \\
+Cuiabá (MT) & -0,0352 & 0,0244 & 0,149 & [-0,0831 ; 0,0126] & -3,5 \\
+Goiânia (GO) & -0,0504 & 0,0191 & 0,008 & [-0,0878 ; -0,0130] & -4,9 \\
+\midrule
+\multicolumn{6}{l}{$n = 44.471$ \hspace{2cm} $R^2 = 0,4696$ \hspace{2cm} $R^2_a = 0,4689$} \\
+\end{longtable}
+\end{center}
+
+\FloatBarrier
+Na Figura \ref{fig:renda_2} é apresentada uma visualização do comportamento das categorias de anos de estudo estimadas a partir dos modelos ajustados. Observa-se que todos os modelos exibem um padrão semelhante ao longo dos níveis educacionais, com as menores escolaridades não apresentando diferenças significativas, até aproximadamente 8 anos de estudo, quando comparadas a indivíduos sem instrução ou com menos de 1 ano de estudo, conforme indicado pelos intervalos de confiança, sendo esse comportamento mais evidente no ano de 2025.
+
+Os modelos mostram um movimento decrescente no incremento percentual da renda para os maiores anos de estudo, com 184,4\% de incremento para 16 ou mais anos de estudo no ano de 2016, seguido por 156,0\% em 2019, 153,5\% em 2022 e, por fim, seu menor nível em 2025 com 125,7\%. Essa redução observada em 2025 pode estar associada a mudanças estruturais no mercado de trabalho ocorridas no período pós-pandemia.
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=1\linewidth]{figuras/Renda_2.png}
+\caption{Incremento percentual na renda dado os anos de estudo segundo o ano} \label{fig:renda_2}
+\end{figure}
+
+\FloatBarrier
+Por fim, a Figura \ref{fig:renda_3} apresenta, para cada ano, o mapa do Brasil com o efeito do incremento percentual na renda das capitais, sempre em comparação à capital Brasília (DF). No modelo de 2016, Natal (RN) apresentou o menor incremento com -33,4\%, enquanto Florianópolis (SC) apresentou o maior, com -10,9\%. Em 2019, Salvador (BA) registrou o menor valor (-34,1\%) e Porto Alegre (RS) o maior (-4,8\%). Em 2022, Recife (PE) apresentou o menor incremento (-34,9\%), ao passo que Curitiba (PR) exibiu o maior (-4,7\%).
+
+O ano de 2025 apresentou os melhores incrementos, incluindo os dois únicos casos em que capitais apresentaram incrementos superiores aos de Brasília, Florianópolis (SC) com 8,1\% e Vitória (ES) com 1,2\%. O menor valor naquele ano foi Salvador (BA), com -29,7\%.
+
+Observa-se que as regiões Norte e Nordeste concentram as maiores diferenças negativas de rendimento ao de todo o período, enquanto Centro-Oeste, Sudeste e Sul apresentam as menores diferenças, incluindo alguns resultados positivos. Contudo, nota-se uma redução gradual dessas discrepâncias, indicando que as desigualdades salariais entre as capitais têm diminuído ao longo do tempo, um fenômeno que se repete em todas as regiões do país.
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=1\linewidth]{figuras/Renda_3.png}
+\caption{Mapas do Brasil com o incremento percentual na renda das capitais, por estado, em relação à capital Brasília (DF), segundo o ano} \label{fig:renda_3}
+\end{figure}
+
+
+\FloatBarrier
+\section{Análise dos resíduos}
+Foi realizado a análise dos resíduos para investigar se os pressupostos dos modelos ajustados foram satisfeitos. As Figuras \ref{fig:residuos_2016} a \ref{fig:residuos_2025} apresentam os gráficos necessários para verificar linearidade, homocedasticidade e normalidade dos erros para os modelos de cada ano. A interpretação dos modelos foi semelhante em todos os períodos analisados.
+
+Para a verificação de linearidade e homocedasticidade, utiliza-se o gráfico dos resíduos padronizados em função dos preditores, Figuras \ref{fig:residuos_2016}(a) a \ref{fig:residuos_2025}(a). Embora os pontos estejam distribuídos em torno de zero, observa-se uma leve assimetria em todos os anos, esse padrão pode ser um indicativo de não linearidade nos modelos. Além disso, como os pontos não estão distribuídos de forma homogênea ao longo do eixo horizontal e concentrados mais à esquerda, é possível que haja violação do pressuposto de homocedasticidade.
+
+Nas Figuras \ref{fig:residuos_2016}(b)(c) e \ref{fig:residuos_2025}(b)(c) estão o QQ-plot e o histograma dos resíduos para avaliar a suposição de normalidade dos erros. Os QQ-plots mostram que os pontos nas extremidades se afastam consideravelmente da linha de igualdade dos quantis teóricos com os quantis dos resíduos padronizados de uma distribuição Normal equivalente. Os histogramas, apesar de se parecerem com distribuições normais, possuem caudas pesadas. Assim, há indícios de heterocedasticidade e não normalidade dos erros.
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{figuras/Resíduos_2016.jpeg}
+\makebox[0.32\textwidth][c]{\small (a) Ajuste do modelo}
+\hfill
+\makebox[0.32\textwidth][c]{\small (b) QQ-plot dos resíduos}
+\hfill
+\makebox[0.32\textwidth][c]{\small (c) Histograma dos resíduos}
+\caption{Análise dos resíduos para o modelo de 2016}
+\label{fig:residuos_2016}
+\end{figure}
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{figuras/Resíduos_2019.jpeg}
+\makebox[0.32\textwidth][c]{\small (a) Ajuste do modelo}
+\hfill
+\makebox[0.32\textwidth][c]{\small (b) QQ-plot dos resíduos}
+\hfill
+\makebox[0.32\textwidth][c]{\small (c) Histograma dos resíduos}
+\caption{Análise dos resíduos para o modelo de 2019}
+\label{fig:residuos_2019}
+\end{figure}
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{figuras/Resíduos_2022.jpeg}
+\makebox[0.32\textwidth][c]{\small (a) Ajuste do modelo}
+\hfill
+\makebox[0.32\textwidth][c]{\small (b) QQ-plot dos resíduos}
+\hfill
+\makebox[0.32\textwidth][c]{\small (c) Histograma dos resíduos}
+\caption{Análise dos resíduos para o modelo de 2022}
+\label{fig:residuos_2022}
+\end{figure}
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{figuras/Resíduos_2025.jpeg}
+\makebox[0.32\textwidth][c]{\small (a) Ajuste do modelo}
+\hfill
+\makebox[0.32\textwidth][c]{\small (b) QQ-plot dos resíduos}
+\hfill
+\makebox[0.32\textwidth][c]{\small (c) Histograma dos resíduos}
+\caption{Análise dos resíduos para o modelo de 2025}
+\label{fig:residuos_2025}
+\end{figure}
+
+\FloatBarrier
+A Tabela \ref{tab:testes_bp_lillie} apresenta os resultados dos testes de Breusch-Pagan e Lilliefors para os modelos, a fim de validar as suposições observadas nos gráficos. Conforme os testes realizados, os valores p encontrados para ambos os testes, em todos os anos, foram aproximadamente iguais a zero, rejeitando as hipóteses nulas. Por isso, pode se dizer que os resíduos possuem variância não constante e não seguem uma distribuição Normal, como já era esperado a partir da analise gráfica.
+
+Para lidar com possíveis violações da suposição de homocedasticidade, uma alternativa consiste em permitir que a variância do modelo dependa explicitamente de covariáveis, por meio da especificação de modelos de localização–escala, nos quais a variância é modelada como uma função dos preditores. Adicionalmente, pode-se considerar o uso de distribuições com caudas mais pesadas do que a Normal, como a distribuição t de Student, que são mais robustas à presença de valores extremos e podem acomodar melhor os dados.
+\FloatBarrier
+\begin{table}[ht]
+\centering
+\caption{Testes de Breusch-Pagan e Lilliefors por Ano}
+\label{tab:testes_bp_lillie}
+\begin{tabular}{lllll}
+\toprule
+\multirow{2}{*}{\textbf{Ano}} & \multicolumn{2}{c}{\textbf{Breusch-Pagan}} & \multicolumn{2}{c}{\textbf{Lilliefors}} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5}
+& \textbf{Valor p} & \textbf{Conclusão} & \textbf{Valor p} & \textbf{Conclusão} \\
+\midrule
+2016 & $<$0,001 & Heterocedasticidade & $<$0,001 & Não-normal \\
+2019 & $<$0,001 & Heterocedasticidade & $<$0,001 & Não-normal \\
+2022 & $<$0,001 & Heterocedasticidade & $<$0,001 & Não-normal \\
+2025 & $<$0,001 & Heterocedasticidade & $<$0,001 & Não-normal \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\chapter{Conclusões} \label{cap:conclusao}
+
+Este trabalho teve como principal objetivo comparar as taxas de retorno da educação em capitais dos estados do Brasil utilizando utilizando a equação $minceriana$. A base de dados utilizada nessa pesquisa foi a PNAD Contínua referente ao 2º trimestre dos anos 2016, 2019, 2022 e 2025, e ao final, após a limpeza da base, a base ficou com 184.264 moradores das capitais.
+
+Foi confirmado que a educação é um preditor fundamental para o rendimento, com retornos positivos crescentes em todos os períodos. O retorno salarial é mais expressivo para os indivíduos que alcançam níveis educacionais mais altos, isto é, tenham ao menos iniciado o ensino superior, atingindo mais de 125\% de aumento no rendimento para o nível superior completo em comparação com a ausência de instrução, no ano de 2025. Isso reforça o papel da educação formal como mecanismo de valorização da força de trabalho.
+
+As desigualdades regionais no rendimento por hora de trabalho nas capitais são evidentes e persistentes, com as regiões Sudeste e Sul apresentando os maiores rendimentos médios. A estimação dos coeficientes das capitais demonstrou que, em comparação com a capital de referência Brasília (DF), a maioria das capitais, em especial as das regiões Norte e Nordeste, está associada a reduções significativas no rendimento.
+
+Pôde ser visto também, além dessa analise principal, que o rendimento por horas trabalhadas dos moradores do sexo masculino ou brancos é superior aos do sexo feminino ou pretos/pardos em todos os anos. O fato do morador ser contribuinte da previdência ou militar possui um aumento médio positivo na renda. Por outro lado, não ser chefe de domicílio ou trabalhador formal, o aumento médio é negativo.
+
+Apesar dos modelos terem capturado entre 46\% e 50\% da variabilidade do log-rendimento, a análise dos resíduos revelou desafios significativos. Os testes de Breusch-Pagan e Lilliefors indicaram a rejeição dos pressupostos clássicos de homocedasticidade e normalidade em todas as estimações (2016, 2019, 2022, 2025). O fato de as hipóteses básicas do modelo não terem sido satisfeitas é um ponto crucial.
+
+Considerando a inadequação do modelo revelada pelos testes, é de extrema importância que trabalhos futuros se concentrem na identificação e aplicação de modelos estatísticos mais robustos que possam acomodar as características específicas da distribuição dos dados de melhor forma.
+
+Seria interessante explorar abordagens alternativas, como a utilização conjunta de todas as bases anuais e até verificar se há diferenças dos anos pré e pós-pandemia. A continuidade do estudo, talvez utilizando dados de séries temporais ou focando em outras metodologias de análise espacial, pode aprofundar a compreensão das disparidades regionais e confirmar se o ganho médio no rendimento a cada ano de estudo alcançado é realmente inferior para certas regiões, contribuindo assim para a criação de políticas públicas mais eficazes e focadas na redução das desigualdades.
+%%%%%%%%%%%%%%%%%%%%%---%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%REFERENCIAS
+%A bibliografia é feita automaticamente com o comando abaixo. 
+%No arquivo referencias.bib devem ser incluídos todos os textos referenciados nesse trabalho.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliography{referencias}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%INÍCIO DOS APENDICES%
+%%%%%%%%%%%%%%%%%%%%%%%%
+%\apendice
+%\renewcommand\thechapter{\arabic{chapter}}
+
+%\chapter{Título do primeiro apêndice}
+
+%Cada apêndice é iniciado com o comando \verb|\chapter{}| e dentro das chaves colocamos o %título do apêndice, assim como foi feito com os capítulos. 
+
+%Nos apêndices são incluídos textos elaborados pelo próprio autor. Dentro dos a\-pên\-di\-ces também podem ser feitas citações: ``No livro de \citeonline{ross_probability} \ldots''
+
+%\chapter{Título do segundo apêndice}
+%Dessa forma você pode incluir quantos apêndices quiser. Se não quiser incluir apêndice algum basta apagar as linhas de código referentes a eles no arquivo .tex. 
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%INÍCIO DOS ANEXOS%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%Os anexos devem ser intorduzidos ao final do trabalho, depois das referências
+%\anexo
+%\renewcommand\thechapter{\arabic{chapter}}
+
+%\chapter{Título do primeiro anexo}
+
+
+%Cada anexo é iniciado com o comando \verb|\chapter{}| e dentro das chaves colocamos o título do apêndice, assim como foi feito com os capítulos. 
+
+
+%Nos anexos são apresentados materiais desenvolvidos por outras pessoas. Dentro dos anexos também podem ser feitas citações, por exemplo, ``Veja em \citeonline{ross_simulation} como \ldots''
+
+
+
+%\chapter{Título do segundo anexo}
+%Dessa forma você pode incluir quantos anexos quiser. Se não quiser incluir anexo algum basta apagar as linhas de código referentes a eles no arquivo .tex. 
+
+
+
+
+
+\end{document}
