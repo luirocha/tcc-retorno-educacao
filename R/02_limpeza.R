@@ -98,10 +98,10 @@ dadosPNADc <- dadosPNADc |>
     # "Médio completo + Superior incompleto" reflete transições de ciclo
     # que têm padrões de rendimento semelhantes na literatura brasileira.
     Escolaridade = case_when(
-      VD3004 == "Sem instrução e menos de 1 ano de estudo"         ~ "Sem instrução",
-      VD3004 == "Fundamental incompleto ou equivalente"             ~ "Fund. incompleto",
+      VD3004 == "Sem instrução e menos de 1 ano de estudo"         ~ "Sem instrução e menos de 1 ano de estudo",
+      VD3004 == "Fundamental incompleto ou equivalente"             ~ "Fundamental incompleto",
       VD3004 %in% c("Fundamental completo ou equivalente",
-                    "Médio incompleto ou equivalente")              ~ "Fund. completo",
+                    "Médio incompleto ou equivalente")              ~ "Fundamental completo",
       VD3004 %in% c("Médio completo ou equivalente",
                     "Superior incompleto ou equivalente")           ~ "Médio completo",
       VD3004 == "Superior completo"                                 ~ "Superior completo"
@@ -113,15 +113,15 @@ dadosPNADc <- dadosPNADc |>
     Atividades = case_when(
       VD4011 %in% c("Diretores e gerentes",
                     "Profissionais das ciências e intelectuais") ~
-        "Diretores, Gerentes e Profissionais Intelectuais",
+        "Diretores, Gerentes e Profissionais da Ciência/Intelectuais",
       VD4011 %in% c("Técnicos e profissionais de nível médio",
                     "Trabalhadores de apoio administrativo",
                     "Trabalhadores dos serviços, vendedores dos comércios e mercados") ~
-        "Técnicos, Admin., Serviços e Comércio",
+        "Técnicos, Profissionais Administrativos, Serviços, Comércios e Mercados",
       VD4011 %in% c("Trabalhadores qualificados da agropecuária, florestais, da caça e da pesca",
                     "Trabalhadores qualificados, operários e artesões da construção, das artes mecânicas e outros ofícios",
                     "Operadores de instalações e máquinas e montadores") ~
-        "Operários, Agropecuária e Operadores de Máquinas",
+        "Operários, Artesões da Construção, Agropecuária, Operadores de Máquinas e Outro Ofícios",
       VD4011 == "Membros das forças armadas, policiais e bombeiros militares" ~
         "Militares",
       VD4011 %in% c("Ocupações elementares", "Ocupações maldefinidas") ~
@@ -214,9 +214,9 @@ dadosPNADc <- dadosPNADc |>
 dadosPNADc <- dadosPNADc |>
   mutate(
     Faixa_Etaria = case_when(
-      V2009 >= 25 & V2009 <= 29 ~ "Jovens (25–29)",
-      V2009 >= 30 & V2009 <= 59 ~ "Adultos (30–59)",
-      V2009 >= 60 & V2009 <= 64 ~ "Idosos (60–64)"
+      V2009 >= 25 & V2009 <= 29 ~ "Jovens",
+      V2009 >= 30 & V2009 <= 59 ~ "Adultos",
+      V2009 >= 60 & V2009 <= 64 ~ "Idosos"
     )
   )
 
@@ -244,13 +244,13 @@ dadosPNADc <- dadosPNADc |>
 dadosPNADc <- dadosPNADc |>
   mutate(
     Escolaridade = factor(Escolaridade,
-      levels = c("Sem instrução", "Fund. incompleto",
-                 "Fund. completo", "Médio completo", "Superior completo")),
+      levels = c("Sem instrução e menos de 1 ano de estudo", "Fundamental incompleto",
+                 "Fundamental completo", "Médio completo", "Superior completo")),
 
     Atividades = factor(Atividades,
-      levels = c("Diretores, Gerentes e Profissionais Intelectuais",
-                 "Técnicos, Admin., Serviços e Comércio",
-                 "Operários, Agropecuária e Operadores de Máquinas",
+      levels = c("Diretores, Gerentes e Profissionais da Ciência/Intelectuais",
+                 "Técnicos, Profissionais Administrativos, Serviços, Comércios e Mercados",
+                 "Operários, Artesões da Construção, Agropecuária, Operadores de Máquinas e Outro Ofícios",
                  "Militares",
                  "Outras ocupações")),
 
@@ -262,7 +262,7 @@ dadosPNADc <- dadosPNADc |>
       levels = c("Norte", "Nordeste", "Centro-Oeste", "Sudeste", "Sul")),
 
     Faixa_Etaria = factor(Faixa_Etaria,
-      levels = c("Jovens (25–29)", "Adultos (30–59)", "Idosos (60–64)")),
+      levels = c("Jovens", "Adultos", "Idosos")),
 
     Raca_Agrupada = factor(Raca_Agrupada,
       levels = c("Branco", "Preto/Pardo")),
