@@ -1,0 +1,16 @@
+"Regiao","Formalidade","VD4012","N","Percentual","Rendimento_Medio"
+"Norte","Formal","Contribuinte",18634,49.5,19.53
+"Norte","Informal","Contribuinte",4039,10.7,23.19
+"Norte","Informal","Não contribuinte",14956,39.7,10.84
+"Nordeste","Formal","Contribuinte",25642,52.1,17.56
+"Nordeste","Informal","Contribuinte",6945,14.1,24.06
+"Nordeste","Informal","Não contribuinte",16662,33.8,10.06
+"Centro-Oeste","Formal","Contribuinte",17690,56.5,24.76
+"Centro-Oeste","Informal","Contribuinte",5360,17.1,30.1
+"Centro-Oeste","Informal","Não contribuinte",8259,26.4,15.53
+"Sudeste","Formal","Contribuinte",27389,57.6,24.34
+"Sudeste","Informal","Contribuinte",8905,18.7,35.29
+"Sudeste","Informal","Não contribuinte",11241,23.6,16.81
+"Sul","Formal","Contribuinte",10596,57.1,27.7
+"Sul","Informal","Contribuinte",4284,23.1,34.06
+"Sul","Informal","Não contribuinte",3662,19.7,20.79
