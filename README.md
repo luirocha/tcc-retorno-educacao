@@ -172,6 +172,8 @@ gerados pelo `02_limpeza.R`.
 
 ## Como reproduzir a análise
 
+Abra o arquivo tcc-retorno-educacao.Rproj no RStudio para garantir que os caminhos relativos funcionem corretamente.
+
 ### 1. Pré-requisitos
 
 R (versão ≥ 4.2.0) com os seguintes pacotes instalados:
@@ -228,6 +230,18 @@ source("R/09_mapa_brasil.R")
 
 Todos os outputs (gráficos e tabelas) serão salvos automaticamente em
 `output/figures/` e `output/tables/`.
+
+### Compilação do documento LaTeX
+
+O texto do TCC está em `tex/main.tex`. Para compilar localmente, é necessário
+o template ABNT da UFF, que não está incluído neste repositório por ser de autoria
+de terceiros. Baixe os arquivos do template em:
+
+**[Projeto Final | Curso de Estatística da UFF](https://estatistica.uff.br/tcc/)**
+(botão "Arquivos .tex")
+
+Coloque os arquivos baixados na mesma pasta do `main.tex` antes de compilar.
+O PDF já compilado está disponível em `docs/tcc_final.pdf`.
 
 ---
 
