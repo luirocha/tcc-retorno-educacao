@@ -106,9 +106,9 @@ desigualdades persistentes ao longo do período:
   que o de homens com perfil equivalente, com leve piora em 2025 (−21,1%).
 - **Raça:** trabalhadores pretos e pardos recebem entre 12% e 13% menos que
   brancos com mesmo perfil observável, padrão estável em todos os anos.
-- **Formalidade:** o diferencial de formalidade cresceu substancialmente ao
+- **Formalidade:** o diferencial de informalidade cresceu substancialmente ao
   longo do período, passando de +5,5% em 2016 para +13,5% em 2025, sugerindo
-  um mercado de trabalho que recompensa cada vez mais o vínculo formal.
+  um mercado de trabalho que recompensa cada vez mais o vínculo informal.
 
 ### Diferenciais regionais (capitais vs. Brasília)
 
@@ -138,6 +138,7 @@ interpretados com cautela.
 ```
 tcc-retorno-educacao/
 │
+├── tcc-retorno-educacao.Rproj
 ├── README.md
 ├── .gitignore
 │
