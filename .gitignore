@@ -21,7 +21,6 @@ data/processed/
 .Rhistory
 .RData
 .Rproj.user/
-*.Rproj
 
 # ------------------------------------------------------------------------------
 # Sistema operacional
